@@ -34,7 +34,7 @@ export function ExperiencePreview() {
 
                             <div className="flex-none px-4 py-2 rounded-lg bg-[var(--color-surface-2)] border border-[var(--color-border)] text-center">
                                 <p className="text-xs text-[var(--color-text-muted)] mb-0.5">Duration</p>
-                                <p className="font-semibold text-sm text-[var(--color-text)]">3 months</p>
+                                <p className="font-semibold text-sm text-[var(--color-text)]">4 months</p>
                             </div>
                         </div>
 
