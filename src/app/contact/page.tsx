@@ -12,8 +12,8 @@ const contactMethods = [
     {
         icon: <Mail size={20} strokeWidth={1.5} />,
         label: "Email",
-        value: "rayng.dev11@gmail.com",
-        href: "mailto:rayng.dev11@gmail.com",
+        value: "huyhoang.nguyensg11@gmail.com",
+        href: "mailto:huyhoang.nguyensg11@gmail.com",
     },
     {
         icon: <Phone size={20} strokeWidth={1.5} />,
@@ -48,7 +48,7 @@ export default function ContactPage() {
                     Contact Me
                 </h1>
                 <p className="text-[var(--color-text-muted)] leading-relaxed">
-                    I&apos;m actively looking for AI/ML engineering roles — remote or in Ho Chi Minh City. Have an opportunity or want to chat? Reach out below.
+                    I&apos;m actively looking for AI/ML engineering roles. Have an opportunity or want to chat? Reach out below.
                 </p>
             </div>
 
@@ -98,8 +98,8 @@ export default function ContactPage() {
                             Download my up-to-date resume for a full overview of skills, experience, and education.
                         </p>
                         <Button
-                            href="/Nguyen-Huy-Hoang-AI-Engineer.pdf"
-                            download="Nguyen-Huy-Hoang-AI-Engineer.pdf"
+                            href="/CV_NguyenHuyHoang.pdf"
+                            download="CV_NguyenHuyHoang.pdf"
                             variant="gold"
                             size="sm"
                         >
@@ -112,7 +112,7 @@ export default function ContactPage() {
                             <MapPin size={16} strokeWidth={2} /> Location
                         </p>
                         <p className="text-sm text-[var(--color-text-muted)]">Ho Chi Minh City, Vietnam</p>
-                        <p className="text-xs text-[var(--color-text-muted)] mt-1">Open to remote & on-site opportunities</p>
+                        <p className="text-xs text-[var(--color-text-muted)] mt-1">Open to new opportunities</p>
                     </div>
                 </div>
             </div>

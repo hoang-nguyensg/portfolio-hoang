@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -131,8 +131,8 @@ export function Navbar() {
 
                     {/* Download Resume */}
                     <a
-                        href="/Nguyen-Huy-Hoang-AI-Engineer.pdf"
-                        download="Nguyen-Huy-Hoang-AI-Engineer.pdf"
+                        href="/CV_NguyenHuyHoang.pdf"
+                        download="CV_NguyenHuyHoang.pdf"
                         className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] transition-all duration-200 shadow-sm"
                     >
                         Download CV
@@ -172,8 +172,8 @@ export function Navbar() {
                         );
                     })}
                     <a
-                        href="/Nguyen-Huy-Hoang-AI-Engineer.pdf"
-                        download="Nguyen-Huy-Hoang-AI-Engineer.pdf"
+                        href="/CV_NguyenHuyHoang.pdf"
+                        download="CV_NguyenHuyHoang.pdf"
                         onClick={() => setMenuOpen(false)}
                         className="mt-2 inline-flex items-center justify-center px-4 py-3 rounded-lg text-sm font-semibold bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] transition-all"
                     >

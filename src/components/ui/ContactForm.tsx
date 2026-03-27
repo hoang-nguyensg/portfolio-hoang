@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, type FormEvent } from "react";
 import { Button } from "./Button";
@@ -35,7 +35,7 @@ export function ContactForm() {
         const body = encodeURIComponent(
             `Hi Huy Hoang,\n\nMy name is ${form.name}.\n\n${form.message}\n\n- ${form.name} (${form.email})`
         );
-        window.location.href = `mailto:rayng.dev11@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:huyhoang.nguyensg11@gmail.com?subject=${subject}&body=${body}`;
         setSubmitted(true);
         setForm(INITIAL);
     }
@@ -49,8 +49,8 @@ export function ContactForm() {
                 <h3 className="font-display font-bold text-xl text-[var(--color-text)] mb-2">Opening your email client...</h3>
                 <p className="text-[var(--color-text-muted)] text-sm">
                     If nothing opened, email me directly at{" "}
-                    <a href="mailto:rayng.dev11@gmail.com" className="text-[var(--color-primary)] underline">
-                        rayng.dev11@gmail.com
+                    <a href="mailto:huyhoang.nguyensg11@gmail.com" className="text-[var(--color-primary)] underline">
+                        huyhoang.nguyensg11@gmail.com
                     </a>
                 </p>
                 <button

@@ -38,12 +38,12 @@ export function ContactCTA() {
                             Let&apos;s Work Together
                         </h2>
                         <p className="text-white/75 text-base mb-8 max-w-xl mx-auto leading-relaxed">
-                            I&apos;m actively looking for AI/ML roles — remote or in Ho Chi Minh City. If you have an opportunity or just want to connect, feel free to reach out.
+                            I&apos;m actively looking for AI/ML roles. If you have an opportunity or just want to connect, feel free to reach out.
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-3">
                             <Button
-                                href="mailto:rayng.dev11@gmail.com"
+                                href="mailto:huyhoang.nguyensg11@gmail.com"
                                 variant="gold"
                                 size="lg"
                             >
