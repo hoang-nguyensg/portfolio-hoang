@@ -66,7 +66,7 @@ function AnimatedTerminal() {
                     <div className="flex items-baseline gap-2 mb-2">
                         <span className="text-[#2ea043] font-bold">~</span>
                         <span className="text-[#ff7b72]">$</span>
-                        <span className="text-[#a5d6ff]">./initialize_ai_engineer.sh</span>
+                        <span className="text-[#a5d6ff]">./initialize_ai.sh</span>
                     </div>
 
                     <div className="mb-4 opacity-0 animate-[terminalFadeIn_0.5s_ease-out_0.5s_forwards]">

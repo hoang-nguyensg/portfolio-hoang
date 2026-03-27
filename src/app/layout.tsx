@@ -20,7 +20,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nguyenhuyhoang.dev"),
   title: {
-    default: "Nguyen Huy Hoang — AI Engineer",
+    default: "Nguyen Huy Hoang",
     template: "%s | Nguyen Huy Hoang",
   },
   description:
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://nguyenhuyhoang.dev",
     siteName: "Nguyen Huy Hoang",
-    title: "Nguyen Huy Hoang — AI Engineer",
+    title: "Nguyen Huy Hoang",
     description:
       "AI Engineer specializing in Computer Vision, Vision-Language Models, and Applied ML Systems.",
     images: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nguyen Huy Hoang — AI Engineer",
+    title: "Nguyen Huy Hoang",
     description:
       "AI Engineer specializing in Computer Vision, Vision-Language Models, and Applied ML Systems.",
     images: ["/og-image.png"],
