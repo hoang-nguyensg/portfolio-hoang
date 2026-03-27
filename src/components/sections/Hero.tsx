@@ -8,7 +8,7 @@ function HeroCodeSnippet() {
     return (
         <div className="relative w-full max-w-xl mx-auto group">
             <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
-            
+
             <div className="relative rounded-xl overflow-hidden shadow-2xl bg-[#0d1117] text-left text-xs sm:text-sm font-mono leading-relaxed transform hover:-translate-y-2 transition-all duration-300 border border-white/5">
                 <div className="flex items-center justify-between px-4 py-3 bg-[#161b22] border-b border-white/5">
                     <div className="flex gap-2">
@@ -46,10 +46,10 @@ function AnimatedTerminal() {
         <div className="relative w-full max-w-xl mx-auto">
             {/* Ambient Glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-[#2ea043] to-[#d2a8ff] rounded-2xl blur-xl opacity-10" />
-            
+
             {/* Terminal Window */}
             <div className="relative rounded-xl overflow-hidden shadow-2xl bg-[#0d1117] border border-white/10 font-mono text-xs sm:text-sm">
-                
+
                 {/* Header */}
                 <div className="flex items-center px-4 py-3 bg-[#161b22] border-b border-white/5">
                     <div className="flex gap-2">
@@ -60,7 +60,7 @@ function AnimatedTerminal() {
                     <div className="mx-auto text-[11px] text-[#8b949e] tracking-widest uppercase font-semibold">system_boot.sh</div>
                     <div className="w-10" />
                 </div>
-                
+
                 {/* Body */}
                 <div className="p-6 text-[#c9d1d9] leading-loose">
                     <div className="flex items-baseline gap-2 mb-2">
@@ -68,11 +68,11 @@ function AnimatedTerminal() {
                         <span className="text-[#ff7b72]">$</span>
                         <span className="text-[#a5d6ff]">./initialize_ai_engineer.sh</span>
                     </div>
-                    
+
                     <div className="mb-4 opacity-0 animate-[terminalFadeIn_0.5s_ease-out_0.5s_forwards]">
                         <span className="text-[#8b949e]">[System]</span> Booting cognitive routines...
                     </div>
-                    
+
                     <div className="space-y-2 mb-4">
                         <div className="opacity-0 animate-[terminalFadeIn_0.5s_ease-out_1.5s_forwards] flex items-center gap-2">
                             <span className="text-[#2ea043]">✔</span> Loaded core module: <span className="text-[#d2a8ff]">Computer Vision</span>
@@ -84,20 +84,21 @@ function AnimatedTerminal() {
                             <span className="text-[#2ea043]">✔</span> Loaded core module: <span className="text-[#d2a8ff]">Applied ML Systems</span>
                         </div>
                     </div>
-                    
+
                     <div className="flex items-baseline gap-2 mb-2 opacity-0 animate-[terminalFadeIn_0.5s_ease-out_4s_forwards]">
                         <span className="text-[#2ea043] font-bold">~</span>
                         <span className="text-[#ff7b72]">$</span>
                         <span className="text-[#a5d6ff]">python interact.py --mode=deploy</span>
                     </div>
-                    
+
                     <div className="opacity-0 animate-[terminalFadeIn_0.5s_ease-out_5s_forwards]">
                         <span className="text-[#8b949e]">[Status]</span> Ready for new opportunities. <span className="inline-block w-2 h-4 bg-[#c9d1d9] animate-pulse align-middle ml-1"></span>
                     </div>
                 </div>
-                
+
                 {/* Embedded Keyframes for animations */}
-                <style dangerouslySetInnerHTML={{ __html: `
+                <style dangerouslySetInnerHTML={{
+                    __html: `
                     @keyframes terminalFadeIn {
                         from { opacity: 0; transform: translateY(4px); }
                         to { opacity: 1; transform: translateY(0); }
@@ -129,7 +130,7 @@ export function Hero() {
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-xs font-medium text-[var(--color-text-muted)] mb-6 animate-fade-in">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            Open to opportunity
+                            Open to Opportunity
                         </div>
 
                         <h1
@@ -203,8 +204,9 @@ export function Hero() {
             <div className="absolute bottom-0 left-0 right-0 border-t border-[var(--color-border)] bg-[var(--color-surface-2)]/30 py-4 overflow-hidden hidden sm:block">
                 <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[var(--color-background)] to-transparent z-10" />
                 <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[var(--color-background)] to-transparent z-10" />
-                
-                <style dangerouslySetInnerHTML={{ __html: `
+
+                <style dangerouslySetInnerHTML={{
+                    __html: `
                     @keyframes marquee {
                         0% { transform: translateX(0%); }
                         100% { transform: translateX(-33.33%); }
@@ -215,14 +217,14 @@ export function Hero() {
                         animation: marquee 25s linear infinite;
                     }
                 `}} />
-                
+
                 <div className="animate-marquee items-center gap-10 whitespace-nowrap">
                     {[
-                        "PyTorch", "TensorFlow", "Hugging Face", "OpenCV", "Gradio", 
+                        "PyTorch", "TensorFlow", "Hugging Face", "OpenCV", "Gradio",
                         "Python", "Docker", "Machine Learning", "Vision-Language Models", "Scikit-learn",
-                        "PyTorch", "TensorFlow", "Hugging Face", "OpenCV", "Gradio", 
+                        "PyTorch", "TensorFlow", "Hugging Face", "OpenCV", "Gradio",
                         "Python", "Docker", "Machine Learning", "Vision-Language Models", "Scikit-learn",
-                        "PyTorch", "TensorFlow", "Hugging Face", "OpenCV", "Gradio", 
+                        "PyTorch", "TensorFlow", "Hugging Face", "OpenCV", "Gradio",
                         "Python", "Docker", "Machine Learning", "Vision-Language Models", "Scikit-learn"
                     ].map((tech, i) => (
                         <div key={i} className="flex items-center gap-10">
