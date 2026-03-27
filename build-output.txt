@@ -1,0 +1,116 @@
+﻿
+> portfolio@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+node.exe : Found 1 
+warning while 
+optimizing generated 
+CSS:
+At line:1 char:1
++ & "C:\Program Files\
+nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Found 1 wa   
+ rning... generate    
+d CSS::String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+
+[2mΓöé   }[22m
+[2mΓöé }[22m
+[2mΓöé[22m @import u
+rl("https://fonts.goog
+leapis.com/css2?family
+=Inter:wght@300;400;50
+0;600;700&family=Outfi
+t:wght@400;500;600;700
+;800&display=swap");
+[2mΓöå[22m        
+[33m[2m^--[22m 
+@import rules must 
+precede all rules 
+aside from @charset 
+and @layer 
+statements[39m
+[2mΓöå[22m
+[2mΓöé .dark {[22m
+[2mΓöé   
+--color-background: 
+#111113;[22m
+
+Γ£ô Compiled successfully in 2.4s
+  Running TypeScript ...
+Failed to compile.
+
+./src/components/secti
+ons/Skills.tsx:6:31
+Type error: Cannot 
+find namespace 'JSX'.
+
+[0m [90m 4 |[39m 
+[36mimport[39m { 
+[33mAnimateIn[39m } 
+[36mfrom[39m [32m"@
+/components/ui/Animate
+In"[39m[33m;[39m
+ [90m 5 |[39m
+[31m[1m>[22m[39m[
+90m 6 |[39m 
+[36mconst[39m 
+iconMap[33m:[39m [3
+3mRecord[39m[33m<[3
+9m[33mstring[39m[33
+m,[39m [33mJSX[39m
+[33m.[39m[33mElement
+[39m[33m>[39m 
+[33m=[39m {
+ [90m   |[39m       
+                      
+  [31m[1m^[22m[39m
+ [90m 7 |[39m     
+code[33m:[39m (
+ [90m 8 |[39m       
+  [33m<[39m[33msvg
+[39m width[33m=[39m
+[32m"20"[39m height[
+33m=[39m[32m"20"[39
+m viewBox[33m=[39m[
+32m"0 0 24 24"[39m fi
+ll[33m=[39m[32m"non
+e"[39m stroke[33m=[
+39m[32m"currentColor"
+[39m strokeWidth[33m
+=[39m[32m"2"[39m st
+rokeLinecap[33m=[39m
+[32m"round"[39m stro
+keLinejoin[33m=[39m
+[32m"round"[39m[33m>
+[39m[33m<[39m[33mp
+olyline[39m points[3
+3m=[39m[32m"16 18 
+22 12 16 6"[39m 
+[35m/><polyline 
+points="8 6 2 12 8 
+18" /[39m[33m>[39m
+[33m<[39m[33m/[39m
+[33msvg[39m[33m>[39
+m
+ [90m 9 |[39m     
+)[33m,[39m[0m
+Next.js build worker 
+exited with code: 1 
+and signal: null

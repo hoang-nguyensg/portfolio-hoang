@@ -1,0 +1,32 @@
+﻿node : [mojibake] src\
+components\sections\Ed
+ucation.tsx:34 - 
+found middle dot (┬╖) 
+garble
+At line:1 char:1
++ node scripts/check-e
+ncoding.mjs src 2>&1 
+| Out-File scan2.txt 
+-Encodi ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: ([mojibake]   
+  src\...dot (┬╖)     
+garble:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+[mojibake] src\compone
+nts\sections\Experienc
+ePreview.tsx:30 - 
+found middle dot (┬╖) 
+garble
+
+Found 2 mojibake 
+occurrence(s). Fix 
+encoding before 
+committing.

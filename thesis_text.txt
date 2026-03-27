@@ -1,0 +1,2539 @@
+MINISTRY OF EDUCATION AND TRAINING
+FPT UNIVERSITY
+Capstone Project Document
+Vision-Language AI for Chest X-ray Caption
+Automation
+GFA25AI05
+Group MembersTran Hoang Phuc - Leader - SE171059
+Nguyen Huy Hoang - Member - SE172529
+Nguyen Ngoc Diem Quynh - Member - SE172195
+Supervisor Truong Hoang Vinh
+Capstone Project code FA25AI55
+HCMC, Dec 2025
+Contents
+Acknowledgement iii
+Definition and Acronyms v
+List of Figures viii
+List of Tables x
+1 Project Management Plan 2
+1.1 Communication Plan . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+2 Introduction 4
+2.1 Project Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.2 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.3 Objective . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.4 Problem Statement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2.5 Significance of the Project . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2.6 Project Scope & Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.6.1 Project Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.6.2 Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3 Related Work 10
+3.1 Monolingual Vietnamese Vision-Language Models . . . . . . . . . . . . . . . . . . . . . . 10
+3.2 Multilingual Vision-Language Models . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4 Methodology 1 12
+4.1 Dataset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+4.1.1 Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+4.1.2 Data Collection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+4.1.3 Data Preprocessing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+4.1.4 Data Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+4.1.5 Data Statistics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+4.1.6 Dataset Formatting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+4.2 Training . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+4.2.1 Model selections . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+4.2.2 Training Setup and Infrastructure . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+4.3 Evaluation Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+4.3.1 Evaluating Text Generation Quality (Natural Language Generation Metrics) . . . 27
+4.3.2 Evaluating Clinical Classification Performance . . . . . . . . . . . . . . . . . . . . 29
+5 Methodology 2 31
+5.1 Dataset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+5.1.1 Data Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+5.1.2 Data Statistic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+5.2 Model Selection and Scaling Strategy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+5.2.1 Methodology 1: Architecture Evaluation and Selection . . . . . . . . . . . . . . . . 33
+5.2.2 Methodology 2: Full-Scale Training on Complete Dataset . . . . . . . . . . . . . . 34
+5.3 Evaluation Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+i
+5.3.1 Doctor Benchmark . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+6 Results and Discussion 37
+6.1 Results for Methodology 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+6.1.1 Training Configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+6.1.2 Training Log Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+6.1.3 Experiment Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+6.1.4 Experimental Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+6.1.5 Training Result . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+6.1.6 Generation Example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+6.2 Results for Methodology 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+6.2.1 Training Configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+6.2.2 Training Log . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+6.2.3 Training Result . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+6.2.4 Doctor Benchmark Evaluation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53
+6.2.5 Generation Example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+6.2.6 Case Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+7 Model Deployment and Inference Optimization 60
+7.1 Deployment Architecture Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+7.2 API Layer Design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+7.2.1 FastAPI Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+7.3 Frontend Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+7.3.1 Gradio Integration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+7.4 Backend Inference Strategies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+7.4.1 Native PyTorch Inference with Hugging Face Transformers . . . . . . . . . . . . . 60
+7.4.2 vLLM-Accelerated Serving . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 61
+7.4.3 NVIDIA Triton Inference Server with Python Backend . . . . . . . . . . . . . . . . 62
+7.5 Containerization and Orchestration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63
+7.6 Comparative Performance Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63
+8 Demo 65
+8.1 Gradio User Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+8.2 Backend Pipeline Workflow . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+9 Conclusion 67
+9.1 Summary of Findings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+9.2 Contributions and Reflections on the Project . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+9.3 Limitations and Future Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+References 69
+ii
+Acknowledgement
+Our Families
+We would like to express our deepest gratitude to our families for their unwavering support, encour-
+agement, and the sacrifices they have made throughout our academic journey. Their belief in us has
+been a constant source of motivation and strength, enabling us to complete this project successfully.
+Our Supervisors
+We sincerely thank our supervisors for their dedicated guidance and valuable insights throughout the
+course of this project. Their expertise, constructive feedback, and continuous support have played a
+vital role in shaping our work and helping us overcome challenges during the research process.
+FPT University
+We sincerely appreciate FPT University for cultivating a dynamic and inspiring educational atmo-
+sphere. The institution has greatly contributed to our development and has been a vital part of our
+journey in completing this project.
+Pythera Company and Mr. Hieu
+We would like to extend our special thanks to Pythera Company and Mr. Hieu for providing us with
+the invaluable opportunity to work on this project in a professional environment. Their mentorship,
+technical guidance, and resources have significantly enhanced the quality of our research and en-
+abled us to bridge academic knowledge with industry practices.
+Military Hospital 175
+We are deeply grateful to Military Hospital 175 for their generous support in providing essential med-
+ical imaging data for this research. Their collaboration and willingness to contribute clinical datasets
+have been instrumental in developing and validating our model. We especially appreciate the medi-
+cal expertise and guidance provided throughout the data collection process.
+CLARA Team
+We would like to acknowledge the significant contributions of all the CLARA team members. Their
+collaborative spirit, technical insights, and unwavering commitment have greatly enriched this project,
+enabling us to achieve our research goals.
+Medical Professionals
+We extend our sincere appreciation to the doctors and medical professionals at Military Hospital 175
+who participated in the benchmark evaluation of our model. Their clinical expertise and thorough
+assessment have been crucial in validating the practical applicability and accuracy of our research
+outcomes.
+All Other Contributors and Supporters
+Finally, we extend our gratitude to all the other contributors and supporters whose assistance, how-
+ever large or small, has been vital to the successful completion of this project.
+iii
+Figure 1:Page 1: Project Cooperation Confirmation
+Figure 2:Page 2: Commitment Form
+ Figure 3:Page 3: Data Privacy Agreement
+Figure 4: Official Confirmation Documents from Military Hospital 175
+iv
+Definition and Acronyms
+Acronym Definition
+AI Artificial Intelligence — the field of computer science that de-
+velops systems capable of performing human-like cognitive
+tasks such as perception, reasoning, learning, and decision-
+making.
+DL Deep Learning — a subfield of machine learning that uses deep
+neural networks with many layers to automatically learn hier-
+archical feature representations from large datasets.
+PM Project Manager — the individual responsible for planning, ex-
+ecuting, and overseeing project activities to ensure objectives
+regarding scope, schedule, and cost are met.
+PMP Project Management Plan — a structured document outlining
+how a project will be executed, monitored, and controlled, in-
+cluding scope, timeline, resources, risks, and communication.
+WBS Work Breakdown Structure — a hierarchical decomposition of
+project deliverables into smaller, manageable work packages
+used for planning and tracking.
+VLM Vision-Language Model — a multimodal architecture capable
+of jointly processing visual and textual data for tasks such as
+captioning, VQA, or cross-modal retrieval.
+CXR Chest X-Ray — a radiographic imaging technique used to ana-
+lyze thoracic structures, including lungs, heart, and chest cav-
+ity.
+BLEU Bilingual Evaluation Understudy — a metric for evaluating ma-
+chine translation quality based on n-gram precision matching
+between generated and reference text.
+ROUGE Recall-Oriented Understudy for Gisting Evaluation — a family
+of metrics for evaluating summarization or generation tasks by
+measuring n-gram or sequence overlap with reference text, em-
+phasizing recall.
+NLP Natural Language Processing — an AI domain focused on en-
+abling machines to understand, interpret, and generate human
+language.
+Continued on next page
+Continued from previous page
+v
+Acronym Definition
+GPU Graphics Processing Unit — a highly parallel processor opti-
+mized for performing large-scale matrix operations, enabling
+fast training and inference of deep learning models.
+ViT Vision Transformer — an attention-based neural architecture
+that processes an image as a sequence of patches, enabling
+global context modeling without convolution.
+API Application Programming Interface — a set of definitions and
+protocols that enable different software components or sys-
+tems to communicate programmatically.
+LLM Large Language Model — a neural model with billions of pa-
+rameters trained on massive corpora to perform advanced lan-
+guage understanding and generation tasks.
+Findings The descriptive observations or results extracted from medical
+imaging or reports—usually indicating abnormalities, patterns,
+or notable characteristics.
+Impressions A clinician’s summarized interpretation of findings, often rep-
+resenting the diagnostic conclusion or most likely condition.
+W&B Weights & Biases — a machine learning experiment tracking
+platform used to log metrics, visualize training, and manage
+model versions.
+Qwen A family of large language and multimodal models developed
+by Alibaba, optimized for reasoning, vision-language tasks, and
+efficient deployment.
+MiniCPM-V A lightweight Vision-Language Model designed for efficient in-
+ference on limited hardware while maintaining strong perfor-
+mance.
+DeepSpeed A deep learning optimization library by Microsoft provid-
+ing distributed training, memory efficiency, and speedups for
+large-scale models.
+Continued on next page
+Continued from previous page
+vi
+Acronym Definition
+CPU Central Processing Unit — the primary general-purpose pro-
+cessor of a computer that handles sequential tasks and system
+operations.
+Dr. Benchmark (Doctor Benchmark) — a benchmarking suite used to evaluate
+medical AI models on tasks such as diagnosis, reasoning, and
+multimodal understanding.
+AdamW An improved variant of the Adam optimizer that decouples
+weight decay from gradient updates, enhancing generalization
+and convergence stability.
+Cosine Cosine Annealing Learning Rate — a learning rate schedule that
+follows a cosine decay curve to improve training dynamics.
+BF16 Brain Floating Point 16-bit — a numerical precision format of-
+fering faster computation and lower memory use than FP32
+while maintaining stable gradients.
+API Application Programming Interface — a structured set of pro-
+tocols enabling communication between software systems or
+models.
+Gradio A Python framework for building quick, interactive web inter-
+faces for machine learning models.
+vLLM A high-performance inference engine optimized for serving
+large language models efficiently using memory-saving tech-
+niques like PagedAttention.
+End of table
+vii
+List of Figures
+1Page 1: Project Cooperation Confirmation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . iv
+2Page 2: Commitment Form. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . iv
+3Page 3: Data Privacy Agreement. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . iv
+4 Official Confirmation Documents from Military Hospital 175 . . . . . . . . . . . . . . . . iv
+5 Comprehensive data preprocessing pipeline illustrating the systematic workflow from
+raw data acquisition through parallel text and image preprocessing streams, hierar-
+chical three-stage annotation architecture, and final stratified dataset partitioning into
+training, development, and test subsets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+6 Distribution of anatomical regions examined across the dataset, demonstrating pre-
+dominant focus on cardiopulmonary structures. . . . . . . . . . . . . . . . . . . . . . . . 14
+7 Frequency distribution of radiological findings and diagnoses, highlighting prevalent
+pathological conditions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+8 Overview of the pipeline models selection training in phase 2 . . . . . . . . . . . . . . . . 19
+9 Model Vintern-1B-v3.5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+10 Model LaVy-8B . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+11 Model InternVL2.5-1B . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+12 Model Qwen2-VL-2B-Instruct and Qwen2-VL-7B-Instruct . . . . . . . . . . . . . . . . . . 22
+13 Model MiniCPM-V-2.6-8B . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+14 Overview of the pipeline phase 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+25figure.15
+26figure.16
+17 Overview of the pipeline phase 1 for dataset 2 . . . . . . . . . . . . . . . . . . . . . . . . . 31
+18 Frequency distribution of anatomical components mentioned in the findings sections
+across 137,930 radiology reports, demonstrating comprehensive cardiopulmonary cov-
+erage with high-frequency cardiac and pulmonary structure documentation . . . . . . . 31
+19 Web-based evaluation interface for Doctor Benchmark. Radiologists review the X-ray
+image (left), compare the generated report against the ground truth (center), and assign
+a score from 1-5 based on diagnostic accuracy and information completeness (right). . 35
+20 Training and evaluation loss curves for all models in Stage 1 (Findings Generation).
+Qwen2-VL-7B shows the lowest evaluation loss but exhibits a slight divergence from
+training loss in later epochs. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+21 Training and evaluation loss curves for all models in Stage 2 (Impressions Generation).
+The overfitting pattern in Qwen2-VL-7B persists with a train-eval gap of approximately
+0.04. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+22 Training and evaluation loss curves for all models in Stage 3 (Multi-turn Conversation).
+Models show varying degrees of convergence and generalization capability. . . . . . . . 40
+23 Detailed training dynamics of the selected model in Stage 3, fine-tuned on 137,930
+multi-turn conversations. The model demonstrates stable convergence with minimal
+train-eval divergence. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+24 Training logs ofQwen2VL-7Btrain with data 137k samples in stage 3 . . . . . . . . . . . 52
+25 NVIDIA Triton Inference Server architecture illustrating multi-model serving capabili-
+ties, dynamic batching, model versioning, and Python backend integration for flexible
+preprocessing and postprocessing pipelines . . . . . . . . . . . . . . . . . . . . . . . . . . 62
+26 Screenshot of the Gradio interface illustrating the Clara multi-turn VLM inference work-
+flow. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+viii
+27 Clara - Medical AI Pipeline Architecture for chest X-ray analysis with multi-turn VLM
+inference . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+ix
+List of Tables
+1 Model checkpoints for Methodology 1 (all three training stages). . . . . . . . . . . . . . . 1
+2 Model checkpoints for Methodology 2 (trained on expanded 137k dataset). . . . . . . . . 1
+3 Task Assignment Table . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+4 One example from our dataset - ViX-Ray . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+5 ViX-ray Data Statistics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+6 An example of Stage 1 input for findings generation . . . . . . . . . . . . . . . . . . . . . . 16
+7 An example of Stage 2 input for impressions generation. . . . . . . . . . . . . . . . . . . . 17
+8 An example of Stage 3 input for multi-turn generation. . . . . . . . . . . . . . . . . . . . . 18
+9 Memory optimization strategies applied across different model scales, with larger mod-
+els requiring progressively more aggressive techniques to fit within available GPU re-
+sources . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+10 Dataset partitioning statistics for ViX-Ray, showing distribution across training, devel-
+opment, and test subsets with 8:1:1 ratio . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+11 Summary of Hyperparameters Used During Fine-tuning . . . . . . . . . . . . . . . . . . . 37
+12 Training configuration for all models across three stages: Stage 1 (Findings), Stage 2
+(Impressions), and Stage 3 (Multi-turn). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+13 Fine-tuning results of VLMs inStage 1 – findings generationandStage 2 – impressions
+generation(%). We present only the results obtained after fine-tuning. The results
+before fine-tuning are provided in Appendix 6.1.5. . . . . . . . . . . . . . . . . . . . . . . 41
+14 Results of Stage 1 - findings generation on the ViX-Ray dataset (%), we report the per-
+formance of models before and after the fine-tuning process. . . . . . . . . . . . . . . . . 44
+15 Results of Stage 2 - impressions generation on the ViX-Ray dataset (%), we report the
+performance of models before and after the fine-tuning process. . . . . . . . . . . . . . . 45
+16 Results of Stage 3 - multi-turn generation on the ViX-Ray dataset (%), we report the
+performance of models before and after the fine-tuning process. . . . . . . . . . . . . . . 47
+17 Illustrative example of the Qwen2-VL-7B model output at Stage 1 – findings generation.
+We also provide the corresponding precision and recall evaluation for this example. In
+the visualization, blue highlights denote correctly generated findings, red indicates in-
+correct information, and purple marks findings from the ground truth that the model
+failed to generate. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+18 Illustrative example of the Qwen2-VL-7B model output at Stage 2 – impressions gen-
+eration. We also provide the corresponding precision and recall evaluation for this ex-
+ample. In the visualization, blue highlights denote correctly generated findings, red
+indicates incorrect information, and purple marks findings from the ground truth that
+the model failed to generate. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+19 Illustrative example of the Qwen2-VL-7B model output at Stage 3 – multi-turn gener-
+ation. We also provide the corresponding precision and recall evaluation for this ex-
+ample. In the visualization, blue highlights denote correctly generated findings, red
+indicates incorrect information, and hallucinated or redundant details not present in
+the ground truth are in orange. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+20 Optimized hyperparameters for full-scale training on Dataset 2 (137,930 samples). Key
+modifications from Phase 1 include reduced epochs (6 vs. 20), increased batch size (15
+vs. 1), and cosine schedule with restarts for improved convergence. . . . . . . . . . . . . 51
+21 Training configuration for all models across stages: Stage 3 (Multi-turn). . . . . . . . . . 52
+22 Fine-tuning results of VLMs inStage 3 - Multi-turn Generation(%). We present only
+the results obtained after fine-tuning. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+x
+23 Doctor Benchmark evaluation on Stage 3 Qwen2-VL-7B model. Total sentences evalu-
+ated: 4,000 (2,000 per section). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53
+24 Illustrative example of the Qwen2-VL-7B model output at Stage 3 – multi-turn genera-
+tion. We provide the corresponding Precision, Recall, and Doctor Benchmark scores for
+this example. In the visualization, blue highlights denote correctly generated content,
+and orange shows content that was missed by the model (present in ground-truth but
+absent in inference). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+25 Illustrative example of the Qwen2-VL-7B model output at Stage 3 – multi-turn genera-
+tion. We provide the corresponding Precision, Recall, and Doctor Benchmark scores for
+this example. In the visualization, blue highlights denote correctly generated content,
+red indicates incorrect information and orange shows content that was missed by the
+model (present in ground-truth but absent in inference). . . . . . . . . . . . . . . . . . . 56
+26 Model performance on heart size assessment with prosthetic heart valves (with X-ray
+images) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+27 Comprehensive performance comparison of model serving strategies evaluated on iden-
+tical hardware (NVIDIA 5090 32GB) with the same input dataset, showing inference la-
+tency, memory consumption, and relative performance improvements . . . . . . . . . . 63
+xi
+Project Resources
+Code and Model Availability
+All code, datasets, and trained models are publicly available to facilitate reproducibility and future
+research.
+Code Repository
+•GitHub:https://github.com/THPhuc2/CLARA---Vision-Language-AI-for-Chest-X-ray-Caption-Automation
+Datasets
+•General Dataset:https://huggingface.co/datasets/THP2903/VNMedical
+•Stage 1 (Findings):https://huggingface.co/datasets/THP2903/BV175_xray_findings
+•Stage 2 (Impressions):https://huggingface.co/datasets/THP2903/BV175_xray_impressions
+•Stage 3 (Multiturn):https://huggingface.co/datasets/THP2903/BV175_multiturn_chat
+Trained Models
+Methodology 1 - Progressive Multi-Stage Training:
+Model Stage 1 (Findings) Stage 2 (Impressions) Stage 3 (Multiturn)
+Vintern-1B-v3.5 Link Link Link
+InternVL2.5-1B Link Link Link
+Qwen2-VL-2B Link Link Link
+Qwen2-VL-7B Link Link Link
+LaVy-8B Link Link Link
+MiniCPM-V-2.6-8B Link Link Link
+Table 1: Model checkpoints for Methodology 1 (all three training stages).
+Methodology 2 - Enhanced 137k Dataset:
+Model Stage 3 (Multiturn)
+Qwen2-VL-7B Link
+Table 2: Model checkpoints for Methodology 2 (trained on expanded 137k dataset).
+1
+1 Project Management Plan
+Table 3: Task Assignment Table
+Week Description User
+Week 1 Collect data, filter out noise, and prepare a clean and
+complete dataset.All members
+Week 2 Design the data processing pipeline and divide the
+dataset into different prompt stages.All members
+Week 3 Select appropriate models for each prompt stage. All members
+Week 4 Determine suitable evaluation metrics for the task. All members
+Week 5–6 Train six models corresponding to the three prompt
+stages.All members
+Week 7 Evaluate the trained models using the selected metrics. All members
+Week 9 Train the best-performing model among the six candi-
+dates on the full dataset and run inference for metric
+evaluation.All members
+Week 10 Refine the best model and perform additional inference-
+based metric evaluation.All members
+Week 11 Integrate the model into an API and prototype interface,
+and conduct doctor benchmark evaluation with hospital
+radiologists.All members
+Week 12 Deploy the model in the target environment and draft the
+technical report.All members
+Week 13 Implement the Gradio UI, Triton Inference Server, and
+FastAPI backend, and finalize system documentation.All members
+Week 14 Finalize the demo, polish documentation, and prepare
+project presentation materials.All members
+1.1 Communication Plan
+To maintain effective communication and alignment throughout the project, our team follows a
+structured communication plan as outlined below.
+•Internal Team Meetings:Held once per week (Saturday) via Google Meet, focusing on task
+updates, issue resolution, and short-term planning.
+•Weekly Written Reports:Each member submits a brief weekly report summarizing individual
+contributions, technical progress, and encountered issues. These reports serve as documenta-
+tion and as a fallback when meeting schedules conflict, ensuring continuous tracking of team
+performance.
+•Advisor Meetings:Organized once per week (Sunday), including an overview of weekly progress,
+key challenges, and feedback from the academic advisor and stakeholders.
+•Communication Tools:
+2
+– Messenger Group:Used for quick daily communication among team members, informal
+coordination, and technical discussions.
+– Zalo Group:Serves as the primary channel between the team and project advisors for
+formal updates, reporting progress, and receiving feedback on technical and research de-
+cisions.
+– Google Drive:Centralized storage for reports, datasets, training logs, experiment outputs,
+and other project-related materials.
+– Google Docs/Sheets:Collaborative workspace for real-time report writing, document edit-
+ing, experimental tracking, and idea development.
+– Notion:Used to manage tasks, organize weekly plans, and visualize project workflow,
+providing a structured view of milestones and responsibilities.
+3
+2 Introduction
+Project Name: Vision-Language AI for Chest X-ray Caption Automation
+Project Code: FA25AI55
+Team Name: GFA25AI05
+Supervisor: Dr.Truong Hoang Vinh
+Stakeholder: Military Hospital 175
+Project Type: AI for Healthcare - Medical Vision-Language Systems
+2.1 Project Overview
+In modern healthcare, Chest X-ray (CXR) imaging remains one of the most widely used diagnostic
+methods globally. It serves as a frontline technique for evaluating diseases related to the lungs, heart.
+While the imaging process itself has been automated and standardized for many years, the most
+critical stage—interpreting, analyzing, and generating diagnostic reports—still relies entirely on ra-
+diologists. This task requires intense concentration, extensive clinical experience, and considerable
+processing time, especially in hospitals that receive a large number of patients daily.
+In Vietnam, this strain is even more pronounced as many healthcare facilities, particularly at the
+provincial and district levels, face a shortage of highly specialized radiologists. The high workload of
+reading hundreds of chest X-rays per day increases fatigue, inconsistency in report descriptions, and
+the risk of diagnostic errors. These challenges not only affect the quality of radiological reports but
+also slow down the entire patient care workflow.
+Addressing this urgent need, this project aims to develop a Vision–Language AI system capable of
+automatically generating Vietnamese medical captions for chest X-ray images. The system focuses on
+identifying and describing important anatomical structures—such as lungs, heart, diaphragm, and
+pleura—and producing observations, Findings, and Impressions following standard clinical report
+formats. The goal is not to replace radiologists but to serve as an assistive tool that reduces workload,
+enhances linguistic consistency, shortens processing time, and improves diagnostic accuracy.
+A notable strength of the project lies in the quality of its training data. Most large chest X-ray datasets
+worldwide are collected from Western patients, who differ from Vietnamese patients in body habitus,
+anatomical structure, and disease patterns. This difference limits the applicability of international
+AI models in Vietnam’s clinical environment. Recognizing this, the project obtained a dedicated X-
+ray dataset from Military Hospital 175, ensuring anatomical, pathological, linguistic, and contextual
+suitability for Vietnamese healthcare. This is a crucial factor in enabling the AI system to generate
+accurate and clinically relevant reports.
+By applying advanced Vision–Language architectures, the system can not only analyze medical im-
+ages but also articulate clinical Findings in natural, domain-appropriate Vietnamese. The final prod-
+uct is designed to support radiologists in tasks such as rapid abnormality screening, drafting stan-
+dardized reports, and providing initial clinical Impressions—thereby improving hospital workflow
+efficiency.
+Beyond practical applications, the project holds significant research value by pioneering the devel-
+opment of multimodal AI for healthcare in Vietnam. Its success may lay the foundation for similar AI
+systems for CT, MRI, and ultrasound imaging, contributing to digital transformation in the medical
+sector.
+4
+2.2 Background
+In Vietnam, although no comprehensive national statistics are publicly available, the Ministry of
+Health and various clinical reports consistently highlight that “a shortage of radiologists and in-
+sufficient X-ray report descriptions” remains a major bottleneck at provincial and district hospi-
+tals—where each radiologist must handle a high volume of daily cases, particularly chest X-rays and
+trauma films. Despite being essential for diagnosing pulmonary, cardiac, and thoracic conditions, X-
+ray interpretation demands specialized skills and significant time investment, placing heavy pressure
+on the medical workforce.
+Additionally, most existing global chest X-ray datasets were collected from non-Vietnamese popula-
+tions whose anatomical and physiological characteristics differ from Vietnamese patients. As a re-
+sult, they cannot be directly applied to Vietnam’s clinical settings. Moreover, Vietnam currently lacks
+a standardized, large-scale medical X-ray dataset for AI research on Vietnamese subjects. For this rea-
+son, the project team acquired a dedicated dataset from Military Hospital 175 to ensure biological,
+anatomical, and linguistic compatibility for training a Vietnamese medical captioning system.
+Overall, the combination of increasing clinical demand, workforce shortages, and the massive vol-
+ume of X-rays creates a substantial gap in healthcare systems worldwide—especially in developing
+countries like Vietnam. In this context, modern Vision–Language models trained on large, high-
+quality datasets present a promising approach for automated radiology report generation. Although
+further real-world clinical evaluation is needed, these models show clear potential in reducing work-
+load, minimizing errors, and improving healthcare quality in resource-limited settings, providing a
+strong foundation for future medical AI development.
+2.3 Objective
+This project applies artificial intelligence—specifically Vietnamese-supported Vision–Language Mod-
+els (VLM)—to assist radiologists in interpreting chest X-rays more quickly and accurately. The objec-
+tive is to support diagnostic reasoning and clinical documentation while reducing the workload for
+physicians, particularly in high-pressure and understaffed medical environments.
+The dataset provided by Military Hospital 175 contains chest X-ray images paired with professional
+medical reports, serving as the foundation for building a specialized medical captioning system.
+The primary goal is to develop an automated system capable of generating detailed, clinically ap-
+propriate Vietnamese descriptions for chest X-rays. The system aims to provide accurate Findings
+and diagnostic Impressions that assist radiologists in rapidly evaluating images, thereby shortening
+diagnostic turnaround times.
+The system addresses the problem of generating detailed Findings and clinical Impressions from
+chest X-ray images. It operates in three main stages: (1) Generate Findings from the input image, (2)
+Generate Impressions based on both the image and the Findings, (3) Support multi-turn interactions
+that combine visual and linguistic cues. Accuracy and consistency of input/output formatting are
+key factors in effective model training.
+This system has the potential to reduce physician workload, enhance diagnostic accuracy, and im-
+prove patient care. From a research perspective, the project advances Vietnamese-compatible AI
+models in healthcare and contributes to the development of multimodal medical AI systems.
+5
+2.4 Problem Statement
+Current chest X-ray interpretation workflows in Vietnam and many other countries face several major
+challenges.
+Overloaded workforce and risk of diagnostic errors. Radiologists must read large numbers of X-rays
+daily, especially at provincial/district hospitals, leading to fatigue, reduced accuracy, and increased
+risk of missing critical abnormalities. High workload not only raises the likelihood of errors but also
+makes it difficult for radiologists to maintain consistent, high-quality clinical reporting.
+Lack of standardization in medical reporting. X-ray descriptions are currently inconsistent, creating
+challenges for data storage, retrieval, analysis, and integration into digital health systems. Variations
+in experience and writing style lead to non-uniform reports, affecting the evaluation and comparison
+of clinical data.
+Shortage of experienced radiologists at lower-tier hospitals. Provincial and district healthcare cen-
+ters often lack highly specialized radiologists, resulting in: (1) Delayed diagnosis and treatment, (2)
+Inaccurate conclusions, (3) Reduced quality of patient care.
+Limitations of existing AI systems. Most current medical AI models focus only on classification or
+abnormality detection and cannot generate full Vietnamese clinical reports. Few systems can repli-
+cate a radiologist’s ability to "see – interpret – articulate" while maintaining consistency, accuracy,
+and speed.
+Need for Vietnamese-language support. Most existing models are trained on English-language datasets
+and cannot be directly applied to Vietnamese clinical workflows. A dedicated system is needed to un-
+derstand and generate Vietnamese medical descriptions consistent with local clinical terminology
+and reporting standards.
+In summary, there is an urgent need for an AI system capable of automatically generating detailed
+Findings and clinical Impressions for chest X-rays in Vietnamese—supporting radiologists in reduc-
+ing workload, improving accuracy, and standardizing medical reporting.
+Such a system must integrate strong visual recognition with accurate medical language generation,
+ensuring fast, reliable, and clinically meaningful outputs suitable for deployment in Vietnam.
+2.5 Significance of the Project
+The Vision–Language AI for Chest X-ray Caption Automation project is significant across clinical,
+technological, and societal dimensions:
+Enhancing diagnostic efficiency and supporting physicians. The AI system generates detailed Find-
+ings and Impressions automatically, reducing physician workload—especially in high-demand and
+understaffed environments. It lowers the risk of errors caused by fatigue and accelerates the diagnos-
+tic process.
+Standardization of Vietnamese medical language.The system produces Vietnamese X-ray descrip-
+tions following clinical standards, ensuring consistency for data storage, retrieval, and analysis. It
+facilitates the development of high-quality digital medical datasets for research, statistical analysis,
+and clinical decision support systems.
+Application of advanced Vision–Language technology. The project leverages cutting-edge VLMs
+that integrate image understanding with medical language generation. It promotes the advancement
+6
+of multimodal AI research in healthcare and enables future applications in CT, MRI, ultrasound, and
+other modalities.
+Contribution to Vietnam’s healthcare ecosystemThe solution is tailored to Vietnam’s context—where
+radiologist shortages and high imaging volumes are prevalent. It can be deployed at provincial/district
+facilities, improving access to high-quality diagnostic services for resource-limited communities.
+Strengthening Vietnam’s AI research capacityThe project builds a Vietnamese-supported multi-
+modal AI foundation for healthcare. It promotes collaboration between hospitals, research institu-
+tions, and AI teams and lays the groundwork for future medical AI initiatives.
+In summary, the project not only addresses practical challenges related to workforce shortages and
+diagnostic errors but also broadens the applications of AI in Vietnam’s healthcare system. It helps
+standardize medical reporting, enhances patient care quality, and accelerates the development of
+multimodal AI technologies in real-world clinical settings.
+2.6 Project Scope & Limitations
+This section defines the boundaries of the project, clarifying what is included and what lies beyond
+the current scope, as well as acknowledging technical and practical constraints.
+2.6.1 Project Scope
+Primary Focus: Chest X-ray Report Generation
+The project specifically targets chest X-ray (CXR) images and focuses on generating two main com-
+ponents of radiological reports:
+•Findings: Detailed descriptions of anatomical structures and observed abnormalities (e.g.,
+lung opacities, heart size, pleural effusion).
+•Impressions: Clinical summaries and diagnostic conclusions based on the Findings.
+Vietnamese Language Support
+The system is designed to generate medical reports exclusively in Vietnamese, following clinical ter-
+minology and reporting standards used in Vietnamese hospitals. All training data, model outputs,
+and evaluation metrics are aligned with Vietnamese medical language conventions.
+Dataset and Clinical Context
+The project uses a proprietary dataset provided by Military Hospital 175, comprising chest X-ray im-
+ages paired with professional Vietnamese radiology reports. This ensures that the AI system is trained
+on data representative of Vietnamese patients’ anatomical characteristics, disease patterns, and clin-
+ical workflows.
+Multi-Stage Training Approach
+The system employs a three-stage fine-tuning strategy:
+•Stage 1:Training on Findings generation
+•Stage 2:Training on Impressions generation
+•Stage 3:Training on multi-turn generation interactions combining visual and textual inputs
+Model Comparison and Selection
+Six state-of-the-art Vision–Language Models (VLMs) are trained and evaluated under identical con-
+ditions to identify the most suitable architecture for Vietnamese chest X-ray captioning: Vintern-1B-
+7
+v3.5 [1], InternVL2.5-1B [2], Qwen2-VL-2B [3], Qwen2-VL-7B [3], LaVy-8B [4], and MiniCPM-V-2.6-
+8B [5].
+Target Users
+The system is intended as an assistive tool for:
+• Radiologists and physicians in Vietnamese hospitals
+• Healthcare facilities facing radiologist shortages or high imaging volumes
+• Medical institutions seeking to standardize radiology reporting workflows
+Deployment Environment:The project aims to develop a proof-of-concept system suitable for inte-
+gration into hospital PACS (Picture Archiving and Communication System) or standalone diagnostic
+workstations. Real-world clinical deployment and regulatory approval are outside the current scope
+but represent future objectives.
+2.6.2 Limitations
+Image Modality Restriction:The system is limited to chest X-ray images only. It does not support
+other radiological modalities such as CT, MRI, ultrasound, or mammography. Extension to other
+imaging types would require additional datasets and model retraining.
+Frontal View Only:The current implementation primarily focuses on frontal (PA/AP) chest X-rays.
+Lateral views and specialized projections are not explicitly modeled, though they may be included in
+future iterations.
+Single Language Support:The system generates reports exclusively in Vietnamese. It does not sup-
+port multilingual outputs or real-time translation to other languages. Adapting the system to English
+or other languages would require re-annotation and model fine-tuning.
+Dataset Size and Diversity:While the dataset from Military Hospital 175 is clinically relevant, it rep-
+resents a single institution’s patient population and imaging protocols. The model’s generalization to
+other hospitals, imaging equipment, or geographic regions may vary and requires further validation.
+Model Interpretability and Explainability:Although the system generates textual descriptions, it does
+not provide explicit visual attention maps or diagnostic reasoning explanations. Understandingwhy
+the model produces certain outputs remains a challenge inherent to deep learning approaches.
+Clinical Validation and Regulatory Approval:The project focuses on technical development and
+evaluation using standard NLP and medical imaging metrics. Formal clinical trials, inter-rater re-
+liability studies with radiologists, and regulatory approval processes (e.g., FDA, CE marking, or Viet-
+nam’s Ministry of Health certification) are beyond the current scope.
+Not a Standalone Diagnostic Tool:The system is designed as anassistivetool to support radiologists,
+not as a replacement for human expertise. Final diagnostic decisions must always be made by qual-
+ified medical professionals. The AI-generated reports serve as drafts or second opinions to enhance
+efficiency and consistency.
+Computational Requirements:Training and inference require substantial computational resources
+(GPUs with sufficient VRAM). Deployment in resource-constrained environments may necessitate
+model quantization, distillation, or cloud-based inference solutions.
+Handling of Rare or Complex Cases:The model is trained on common chest X-ray Findings and
+8
+may underperform on rare pathologies, uncommon anatomical variations, or highly complex multi-
+pathology cases that are underrepresented in the training data.
+Temporal and Longitudinal Analysis:The current system analyzes individual X-ray images in isola-
+tion. It does not perform temporal comparisons (e.g., comparing current and prior studies) or track
+disease progression over time, which are important clinical capabilities.
+9
+3 Related Work
+3.1 Monolingual Vietnamese Vision-Language Models
+Vintern-1B-v3.5[1] is a 1-billion-parameter multimodal large language model (MLLM) tailored for
+Vietnamese language tasks. Recent years have seen rapid progress in multimodal large language
+models (MLLMs), with closed-source systems like GPT-4o and Gemini Pro Vision achieving highly
+capable cross-modal reasoning. Open-source efforts have also accelerated, led by models such as the
+InternVL series, which align visual inputs with LLMs through visual instruction tuning. InternVL2-1B,
+built on the distilled InternViT-300M encoder and paired with Qwen2-0.5B-Instruct, delivers strong
+multilingual performance, including excellent Vietnamese understanding. For Vietnamese MLLMs,
+models like V-Vistral and LaVy mark important progress, yet significant challenges remain in docu-
+ment understanding, charts, infographics, and Vietnamese scene text.
+LaVy-8B[4] is a Vietnamese multimodal large language model built upon the Vistral-7B language
+model and the CLIP-Large visual encoder. Renabled strong performance in tasks like dialogue, cre-
+ative writing, and problem-solving, with models such as LLaMA, Mistral, and Gemma becoming
+foundation models. Vietnamese models, such as PhoGPT and Vistral, show promising results on
+language-specific benchmarks. Multimodal LLMs (MLLMs) extend these capabilities to text, im-
+ages, and other modalities. Closed-source models like GPT-4 and Gemini Pro Vision demonstrate
+strong visual-language performance, while open-source models such as Flamingo, BLIP-2, LLaVA,
+and MiniGPT-4 use techniques like gated attention and visual instruction tuning to align visual in-
+puts with LLMs. Research also explores lightweight MLLMs like Bunny and vision-language tasks for
+low-resource languages, reflecting growing interest in scalable multimodal reasoning.
+3.2 Multilingual Vision-Language Models
+InternVL2.5-1B[6] is an advanced MLLM that builds upon the InternVL 2.0 architecture, introduc-
+ing significant enhancements in training strategies and data quality. Computer vision has progressed
+from CNNs to Vision Transformers, but most vision models remain visual-only and relatively small,
+limiting their use in multimodal systems. In contrast, LLMs like GPT-4, LLaMA, and Qwen have
+rapidly advanced NLP and driven interest in multimodal interaction. This convergence produced
+VLLMs such as Flamingo, LLaVA, MiniGPT-4, KOSMOS-2, and Qwen-VL, which integrate visual un-
+derstanding through instruction tuning and grounding. Although multimodal models are improving
+quickly, vision and vision-language foundation models still lag behind LLMs, leaving key challenges
+for future development.
+Qwen2-VL-2B-Instruct[3] andQwen2-VL-7B-Instruct[3] are part of the Qwen2-VL series.Qwen2-
+VL advances the Qwen-VL family with a dynamic-resolution mechanism that converts images into
+flexible visual tokens, allowing the model to keep fine details while remaining efficient. It also intro-
+duces M-RoPE, a multidimensional positional embedding for unified reasoning across text, images,
+and videos. Available in 2B–7B sizes, Qwen2-VL follows the design direction of models like Kosmos-2
+and PaLI-X, emphasising adaptability to diverse inputs. Overall, it represents a modern, scalable ap-
+proach to multimodal encoding with strong potential for OCR, high-resolution image understanding,
+and video tasks.
+10
+MiniCPM-V-2.6-8B[5] is the latest and most capable model in the MiniCPM-V series, comprising 8
+billion parameters. Built on SigLip-400M and Qwen2-7B architectures, it supports the processing of
+single images, multiple images, and videos. MiniCPM-V-2.6-8B builds on the trend of lightweight Vi-
+sion–Language Models optimised for efficiency, following prior work on compact multimodal archi-
+tectures that balance visual understanding and language generation. Existing studies on MiniCPM-V
+primarily emphasize improved alignment, better instruction tuning, and reduced inference cost, po-
+sitioning it as a practical VLM for real-world deployment, especially where computational resources
+are limited
+11
+4 Methodology 1
+4.1 Dataset
+4.1.1 Overview
+In this section, we describe the data collection process, including a brief overview of the data fields
+in our dataset. We also analyze the anatomical parts mentioned by doctors in the Findings, as well as
+the frequency of their diagnoses.
+Age 27
+Gender Nam - (Male)
+View PA (Posterior Anterior)
+Note Chụp Xquang ngực thẳng- (Frontal chest X-ray)
+Technique Chụp Xquang tim phổi thẳng- (Posteroanterior chest radiograph)
+FindingsHình ảnh gãy cung xương sườn 2 bên trái. Phổi hai bên kém sáng đều.
+Thâm nhiễm nhu mô phổi hai bên, đám mờ đông đặc nhu mô phổi phải.
+Bờ vòm hoành hai bên đều. Góc sườn hoành hai bên nhọn. Bóng tim
+không to. Các bờ trung thất trong giới hạn bình thường.
+(Fracture of the left 2nd rib arch. Both lungs show decreased translucency. Bi-
+lateral pulmonary parenchymal infiltrates, with a consolidation opacity in the
+right lung parenchyma. Both diaphragmatic domes have clear borders. Both
+costophrenic angles are sharp. The cardiac silhouette is not enlarged. Mediasti-
+nal borders are within normal limits.)
+ImpressionThâm nhiễm nhu mô phổi hai bên. Đám mờ đông đặc nhu mô phổi phải
+nghĩ đến đụng dập nhu mô phổi. Gãy cung xương sườn 2 bên trái.
+(Bilateral pulmonary parenchymal infiltrates. Consolidation opacity in the right
+lung parenchyma, suggestive of pulmonary contusion. Fracture of the left 2nd rib
+arch.)
+X-ray
+Table 4: One example from our dataset - ViX-Ray
+4.1.2 Data Collection
+ViX-Ray was collected from examination records of patients at Military Medical Hospital 175, com-
+prising 5,400 chest X-ray images, each accompanied by detailed Findings and diagnostic Impressions
+provided by medical specialists. All Patient Healthcare Identifiable (PHI) information has been re-
+moved to ensure data privacy and security. However, clinically relevant metadata such as age and
+12
+gender has been retained to support diagnostic and analytical tasks. Table 4 illustrates a representa-
+tive sample from the dataset.
+4.1.3 Data Preprocessing
+Figure 5: Comprehensive data preprocessing pipeline illustrating the systematic workflow from raw
+data acquisition through parallel text and image preprocessing streams, hierarchical three-stage an-
+notation architecture, and final stratified dataset partitioning into training, development, and test
+subsets
+The data preprocessing phase constitutes a critical foundation for ensuring data quality and model
+performance in our automated radiology report generation system. Operating on the Military Hospi-
+tal 175 dataset comprising 137,930 chest X-ray examinations, we implement a comprehensive dual-
+pipeline preprocessing framework that addresses the heterogeneous nature of multimodal medical
+data, as depicted in Figure 5.
+Textual Data Processing Pipeline.The clinical text preprocessing pipeline incorporates multiple
+normalization steps to mitigate noise and standardize linguistic representations. We systematically
+remove punctuation marks and special characters that introduce unnecessary lexical variability, while
+employing stop word elimination to reduce dimensionality without sacrificing semantic content.
+This preprocessing strategy ensures that subsequent natural language processing (NLP) components
+can effectively capture clinically relevant patterns while maintaining computational efficiency.
+Medical Imaging Processing Pipeline.For radiographic images originally stored in DICOM (Digital
+Imaging and Communications in Medicine) format, we perform lossless conversion to PNG format
+to ensure compatibility with modern deep learning frameworks while preserving critical diagnostic
+information. This conversion maintains the original pixel intensity distributions and spatial resolu-
+tions necessary for accurate feature extraction by VLMs.
+Three-Stage Annotation Architecture.The preprocessed multimodal data is subsequently organized
+into a hierarchical three-stage annotation framework that mirrors the clinical reasoning process of
+radiologists. Stage 1 (Findings Generation) focuses on extracting objective observations from radio-
+graphic images paired with patient clinical information. Stage 2 (Impressions Generation) synthe-
+sizes these Findings into diagnostic interpretations, incorporating domain knowledge and clinical
+13
+context. Stage 3 (Multi-turn Generation) enables the complete report generation workflow, combin-
+ing both Findings and Impressions in a coherent narrative structure that facilitates iterative refine-
+ment and multi-turn dialogue capabilities.
+Dataset Partitioning Strategy.To ensure robust model evaluation and generalization, we partition
+the complete preprocessed dataset into two primary subsets with distinct characteristics. Dataset 1
+contains 5,400 carefully curated samples and is divided into training (4,320 samples, 80%), develop-
+ment (540 samples, 10%), and test (540 samples, 10%) sets. Dataset 2, comprising 137,930 samples,
+follows a similar partitioning scheme with 110,344 training samples (80%), 13,793 development sam-
+ples (10%), and 13,793 test samples (10%). This stratified splitting approach maintains distributional
+consistency across subsets while providing sufficient data for model training, hyperparameter tun-
+ing, and unbiased performance assessment.
+4.1.4 Data Analysis
+To elucidate the clinical characteristics and distributional properties of the ViX-Ray dataset, we con-
+duct a comprehensive statistical analysis encompassing anatomical region coverage and diagnostic
+pattern distributions. This multifaceted analysis provides critical insights into the dataset’s compo-
+sition, clinical diversity, and its potential utility for developing robust radiology report generation
+systems.
+Figure 6: Distribution of anatomical regions ex-
+amined across the dataset, demonstrating pre-
+dominant focus on cardiopulmonary structures.
+Figure 7: Frequency distribution of radiological
+findings and diagnoses, highlighting prevalent
+pathological conditions.
+Anatomical Region Distribution Analysis.The radiological reports in our dataset comprise detailed
+narrative descriptions of patient conditions, as exemplified in Table 4. To systematically quantify
+anatomical coverage, we employ Stanza [7] for Vietnamese language parsing to construct syntactic
+parse trees, enabling precise extraction and frequency analysis of anatomical noun phrases appear-
+ing in radiologist assessments.
+As illustrated in Figure 6, the distribution reveals a pronounced emphasis on cardiopulmonary struc-
+tures, withtim(heart, 5,382 mentions) andphổi(lung, 5,381 mentions) constituting the most fre-
+quently examined organs, reflecting the primary clinical utility of chest radiography. Secondary
+14
+anatomical structures includingsườn(ribs, 5,307 mentions),vòm(dome/diaphragm, 5,274 men-
+tions), andrốn(hilum, 4,708 mentions) demonstrate substantial representation, indicating compre-
+hensive thoracic examination coverage.
+Notably, the radiological narratives exhibit remarkable anatomical granularity, incorporating precise
+localization descriptors such as"xương sườn 2 bên trái"(left second rib), pathological specifications
+like"Gãy cung sau xương sườn III"(posterior fracture of the third rib), and spatial relationships
+exemplified by"cạnh rốn phổi trái"(adjacent to the left hilum). This fine-grained anatomical speci-
+ficity substantially elevates dataset complexity, necessitating that vision-language models develop
+sophisticated spatial reasoning capabilities and comprehensive anatomical knowledge to accurately
+interpret positional relationships and structural characteristics within radiographic images.
+Diagnostic Pattern Distribution Analysis.The diagnostic distribution analysis, presented in Fig-
+ure 7, reveals the spectrum of pathological conditions documented in our dataset.Tổn thương
+phổi kẽ(interstitial lung disease) emerges as the most prevalent finding with 3,642 occurrences,
+reflecting the high incidence of chronic pulmonary conditions in clinical practice. Cardiovascular
+Findings demonstrate significant representation, withvôi hóa thành van động mạch chủ(aortic
+knob calcification, 1,157 cases) and various cardiomegaly patterns (bóng mờ tim to, cardiac opac-
+ity/enlargement, 903 cases) indicating substantial cardiac pathology coverage.
+The distribution also captures a diverse range of less frequent but clinically significant conditions, in-
+cludingquai động mạch chủ vững(aortic arch prominence, 943 cases),bóng tim to(cardiomegaly,
+286 cases), and pulmonary parenchymal abnormalities such asnhu mô phổi(lung parenchyma al-
+terations, 26 cases). This comprehensive pathological coverage, spanning high-prevalence condi-
+tions to rare Findings, positions the ViX-Ray dataset as a valuable resource for training models capa-
+ble of recognizing diverse radiological manifestations across the clinical spectrum.
+The long-tail distribution observed in diagnostic frequencies—with several conditions appearing
+fewer than 30 times—presents both challenges and opportunities for model development. While
+such imbalanced distributions mirror real-world clinical scenarios where certain pathologies are in-
+herently rare, they necessitate careful consideration of class imbalance mitigation strategies during
+model training to ensure robust performance across the entire diagnostic spectrum.
+Clinical Complexity and Dataset Richness.The conjunction of anatomically precise descriptions
+with diverse pathological representations establishes ViX-Ray as a clinically rich and technically chal-
+lenging dataset. The requirement for models to simultaneously master anatomical localization, spa-
+tial reasoning, pathological pattern recognition, and Vietnamese medical terminology comprehen-
+sion creates a multifaceted evaluation framework that closely approximates the cognitive demands
+faced by radiologists in clinical practice. This inherent complexity positions our dataset as an rigor-
+ous benchmark for advancing multimodal medical AI systems capable of generating clinically accu-
+rate and contextually appropriate radiology reports.
+4.1.5 Data Statistics
+From the 5,400 samples in the ViX-Ray dataset, we split the data into three subsets: training, devel-
+opment (dev) and test sets, with a ratio of 8:1:1, respectively. The exact number of samples in each
+subset is shown in Table 5.
+15
+Train Development Test
+4320 540 540
+Table 5: ViX-ray Data Statistics
+4.1.6 Dataset Formatting
+Stage 1 - Findings GenerationWe provide patient information, including gender, age, and the X-
+ray view type, along with the X-ray image of the patient. An example of the input used in Stage 1 -
+Findings generation is illustrated in Table 6.
+Stage 1 -
+Findings
+Generation"Role": "System"−"Content":"Bạn là trợ lý bác sĩ (You are a medical assistant)"
+"Role": "User"−"Content":"Ảnh chụp X-ray PA (Chụp Xquang tim phổi thẳng) bệnh
+nhân nam, 72 tuổi. Cho biết bệnh nhân bị gì?"
+(X-ray PA image (Posteroanterior chest X-ray) of a 72-year-old male patient. Please indicate
+what condition the patient has)
+"Role": "User"−"Content":
+"Ground Truth":"Phổi hai bên kém sáng, mờ kính rải rác, rốn phổi tăng đậm nhẹ.
+Bờ vòm hoành hai bên đều, hai góc sườn hoành nhọn. Bóng mờ tim không to. Vôi
+hóa thành quai động mạch chủ."
+(The lungs are bilaterally hypolucent with scattered ground-glass opacities. Mild hilar
+prominence is noted. The diaphragmatic contours are smooth, and both costophrenic an-
+gles are sharp. The cardiac silhouette is within normal limits. Calcifications are seen in the
+wall of the aortic arch.)
+Table 6: An example of Stage 1 input for findings generation
+Stage 2 - Findings GenerationSimilar to the input used for Stage 1 — Findings generation during
+VLM fine-tuning, we also provide the necessary patient information and X-ray image, as illustrated
+in Table 7.
+16
+Stage 2 -
+Impressions
+Generation"Role": "System"−"Content":"Bạn là trợ lý bác sĩ (You are a medical assistant)"
+"Role": "User"−"Content":"Ảnh chụp X-ray PA (Chụp Xquang tim phổi thẳng) bệnh
+nhân nữ, 68 tuổi. Cho biết bệnh nhân bị gì?"
+(X-ray PA image (Posteroanterior chest X-ray) of a 68-year-old female patient. Please indicate
+what condition the patient has.)
+"Role": "User"−"Content":
+"Ground Truth":"Hình ảnh nghĩ nhiều đến tổn thương phổi kẽ. Vôi hóa thùy trên
+phổi trái"
+(The image is highly suggestive of interstitial lung lesions. Calcification in the upper lobe of
+the left lung.)
+Table 7: An example of Stage 2 input for impressions generation.
+Stage 3 - Multi-turn GenerationWe illustrate the input for Stage 3 — multi-turn generation in Ta-
+ble 8. In this setup, we provide patient information, including age, gender, and the X-ray image. Based
+on this input, the model is first required to describe the condition of the patient (Findings), and then
+to generate diagnostic conclusions (Impressions) from the described information.
+17
+Stage 3 -
+Multi-turn
+Generation"Role": "System"−"Content":"Bạn là trợ lý bác sĩ (You are a medical assistant)"
+"Role": "User"−"Content":"Ảnh chụp X-ray PA (Chụp Xquang tim phổi thẳng) bệnh
+nhân nam, 56 tuổi. Cho biết bệnh nhân bị gì?"
+(X-ray PA image (Posteroanterior chest X-ray) of a 56-year-old male patient. Please indicate
+what condition the patient has.)
+"Role": "User"−"Content":
+"Role": "Assistant" -"Content":"Lồng ngực cân đối, không thấy bất thường xương.
+Phổi hai bên sáng đều. Rốn phổi hai bên không thấy bất thường. Bờ vòm hoành hai
+bên đều. Góc sườn hoành hai bên nhọn. Bóng tim không to. Quai động mạch chủ
+vồng."
+(The chest appears symmetrical with no bony abnormalities. Lungs are bilaterally clear . Hi-
+lar regions are unremarkable. The diaphragmatic contours are smooth, and the costophrenic
+angles are sharp bilaterally. The cardiac silhouette is within normal limits. The aortic arch
+appears prominent.)
+"Role": "User"−"Content":"Kết luận bệnh nhân bị gì?"
+(What is the diagnosis of the patient?)
+"Role": "User"−"Content": <image>
+"Role": "User"−"Content":"Hình ảnh Quai động mạch chủ vồng."
+(The image shows a prominent aortic arch.)
+Table 8: An example of Stage 3 input for multi-turn generation.
+Diagnosis Frequency:Similar to the previously described information extraction steps, we applied
+frequency analysis on the doctors’ diagnoses, and the results are illustrated in Figure 7. From the fig-
+ure, it can be observed that diagnoses related to the lungs and heart appear with high frequency—typical
+examples include"tổn thương phổi kẽ"(Interstitial lung disease) and"Bóng tim to"(Cardiomegaly).
+In addition, the specialists also provided severity levels of the conditions observed in patients. For in-
+stance, in the case of"Bóng tim to"(Cardiomegaly), a milder form is also noted as"Bóng mờ tim
+to nhẹ"(Mild cardiomegaly (opacity)). This presents a significant challenge for models, as they must
+not only accurately identify the location and characteristics of anatomical structures, but also detect
+and classify the presence and severity of abnormalities across patients of different ages.
+18
+4.2 Training
+4.2.1 Model selections
+Figure 8: Overview of the pipeline models selection training in phase 2
+To explore the effectiveness of Vision-Language Large Models (VLLMs) on Vietnamese multimodal
+medical data, we adopt a three-stage fine-tuning strategy applied to six different models. These
+models include both monolingual and multilingual architectures and vary significantly in size and
+training complexity.
+Figure 9: Model Vintern-1B-v3.5
+Vintern-1B-v3.5[1]: Using InternViT (300M, 448 px) as its vision encoder to extract rich, seman-
+tically dense visual features. After obtaining these embeddings, it applies a multi-layer perceptron
+(MLP) projector to map them into a lower-dimensional token space that aligns with the language
+model hidden size. To reduce computation, Vintern also employs token compression: before pro-
+19
+jection, it performs pixel unshuffle, cutting the number of visual tokens by roughly three-quarters,
+similar to the mechanism used in InternVL-2.5. The compressed visual tokens are then concate-
+nated (rather than attended) with text tokens, forming a multimodal sequence. This design choice
+minimizes complexity and latency while preserving essential cross-modal information. A 1-billion-
+parameter decoder, derived from Qwen2-0.5B-Instruct, consumes the fused sequence and performs
+reasoning and generation in a standard Transformer architecture. Vintern’s architecture is optimized
+for resource-constrained environments, offering efficient inference with strong cross-modal align-
+ment.
+Figure 10: Model LaVy-8B
+LaVy-8B[4]: Employs CLIP-Large as its vision encoder, producing approximately one thousand
+high-level embeddings per image. These embeddings are passed through a multi-layer perceptron
+(MLP) projector, which compresses the CLIP visual space into a more compact and language-aligned
+latent representation. This projection serves as the bridge between the frozen CLIP encoder and
+the downstream transformer decoder. After projection, the resulting visual tokens are concatenated
+with text embeddings to form a unified multimodal sequence that the Vistral-7B decoder processes
+using standard transformer blocks. The training pipeline follows a two-stage strategy described in
+the official LAVY technical report: first, most model parameters are frozen while only the projector
+is optimized, enabling efficient alignment without overfitting. In the second stage, selective mod-
+ules are unfrozen to refine cross-modal reasoning. This approach reduces compute requirements
+while maintaining strong alignment between CLIP and the language model. Overall, LAVY is built for
+Vietnamese multimodal tasks, particularly medical imaging and document understanding, where
+domain-specific fine-tuning is essential for high-quality downstream performance.
+20
+Figure 11: Model InternVL2.5-1B
+InternVL2.5-1B[2]: Built on InternViT (available in 300M or 6B parameter sizes) to extract a large
+set of fine-grained visual tokens from high-resolution inputs. It then uses pixel unshuffle to drasti-
+cally reduce the number of tokens (down to ¼ of the initial count), maintaining spatial information
+while cutting down compute cost. The down-sampled tokens are passed through an MLP projec-
+tor to align them with the hidden dimension of the LLM. InternVL-2.5 adopts a progressive training
+strategy: first train the projector alone, then conduct full multimodal fine-tuning, and even switch to
+larger LLM backbones in later stages for more capacity. To improve robustness, the training pipeline
+uses random JPEG compression as an augmentation technique, combined with loss re-weighting to
+balance between short and long generated outputs. After projection, visual tokens and text tokens
+are fused via a hierarchical cross-modal fusion pipeline (multiple multimodal Transformer blocks),
+and then passed into a 1B-parameter InternVL LLM, which handles reasoning, captioning, or other
+downstream tasks.
+21
+Figure 12: Model Qwen2-VL-2B-Instruct and Qwen2-VL-7B-Instruct
+Qwen2-VL-2B-Instruct[3] andQwen2-VL-7B-Instruct[3]: These models integrate state-of-the-
+art features such as Rotary Position Embedding (RoPE) and its multi-dimensional variant (MRoPE),
+which improve spatial and temporal reasoning. Qwen2-VL introduces a high-resolution Vision Trans-
+former (ViT) encoder capable of dynamically adjusting the number of extracted visual tokens de-
+pending on the input image resolution. This dynamic tokenization approach allows the model to
+preserve fine-grained spatial details without heavy downsampling. The visual embeddings are then
+processed through a flexible projector, which produces a variable-length sequence of multimodal to-
+kens tailored to the original resolution. These visual tokens are integrated directly into the Qwen2
+language backbone via cross-attention layers placed throughout the transformer stack. This tightly
+coupled fusion strategy enables long-context multimodal reasoning, charts, documents, and textual
+elements embedded in images. The model is designed for arbitrary aspect ratios, multi-resolution
+processing, and long-sequence reasoning, giving it strong performance across diverse visual do-
+mains.
+22
+Figure 13: Model MiniCPM-V-2.6-8B
+MiniCPM-V-2.6-8B[5]: Integrates a SigLip/ViT-based vision encoder, capable of extracting dense
+and high-resolution features from single or multiple images. The encoder outputs are then passed
+through a projector or Q-Former-like compression module, reducing the large number of visual patches
+into a smaller, semantically meaningful set of visual tokens. This design improves computational
+efficiency while preserving detailed representations needed for challenging multimodal tasks. The
+compressed visual tokens interact with textual embeddings through cross-attention fusion layers,
+enabling the model to align visual cues with language instructions during generation. The fused rep-
+resentation is fed into an 8-billion-parameter decoder based on the Qwen architecture, supporting
+multimodal conversation, reasoning, and inference. The model is optimized for multi-image under-
+standing. Its token compression strategy allows MiniCPM-V to maintain competitive performance
+on OpenCompass and other evaluation suites while remaining smaller and faster compared to many
+large VLMs.
+To ensure consistent training across all models, we employ a three-stage curriculum learning ap-
+proach. The stages are constructed progressively, starting from simple question-answer (QA) pairs to
+more domain-specific and noisy medical annotations. This setup helps the models gradually build a
+grounding in the general visual-linguistic domain before being exposed to complex clinical prompts
+and radiological language.
+23
+Figure 14: Overview of the pipeline phase 3
+4.2.2 Training Setup and Infrastructure
+All experiments are conducted using thesftrainframework, selected for its flexibility and efficiency
+in scaling large VLMs across distributed computing environments. To balance detail preservation
+with computational constraints, all input images are uniformly resized to 448×448 pixels prior to
+training—a resolution that maintains clinically relevant anatomical features while fitting within GPU
+memory limitations.
+Memory Challenges in Large Model Training.The training of large-scale VLMs presents substan-
+tial memory management challenges that vary dramatically with model size. For relatively compact
+models such as our 1B and 2B parameter variants, full fine-tuning—wherein all parameters of both
+the vision encoder and language decoder are simultaneously updated—can be performed without
+specialized memory optimization techniques on standard GPU configurations.
+However, scaling to larger architectures introduces critical memory bottlenecks. Figure 15 illustrates
+a representative out-of-memory (OOM) error encountered during initial training attempts of our 7B
+parameter model on a multi-GPU system with 7×5090 GPUs (totaling approximately 224GB aggregate
+VRAM). The error traceback reveals that PyTorch’s default memory allocation strategy exhausts avail-
+able GPU memory during the forward pass, with the specific failure occurring at 15.45 GiB allocated
+on GPU 4 (which has 31.36 GiB total capacity) when attempting to allocate an additional 16.48 GiB
+for intermediate activations. This memory pressure stems from multiple simultaneous demands:
+•Model Parameters: 7B-8B parameter models in FP32 require 28-32 GB for weights alone; even
+with BF16 precision, this reduces only to 14-16 GB per GPU
+•Optimizer States: AdamW maintains two additional states (momentum and variance) per pa-
+rameter, tripling memory requirements to 42-48 GB for FP32 or 21-24 GB for BF16
+•Gradients: Backpropagation necessitates storing gradients for all parameters, adding another
+14-16 GB (BF16)
+•Activations: Forward pass activations for high-resolution medical images (448×448) with deep
+vision encoders generate substantial intermediate tensors, often exceeding 10-15 GB per batch
+24
+These cumulative memory demands far exceed single-GPU capacity and even challenge naive multi-
+GPU data parallelism approaches where each GPU maintains a full model replica.
+Figure 15: Out-of-memory error encountered during training of 7B parameter model without mem-
+ory optimization strategies. The error occurs when PyTorch attempts to allocate 16.48 GiB for acti-
+vations on GPU 4, which already has 15.45 GiB allocated, exceeding available capacity and triggering
+training failure.
+DeepSpeed Integration for Memory-Efficient Training.To overcome these fundamental memory
+limitations while maintaining full fine-tuning capabilities, we integrate Microsoft DeepSpeed [8]—a
+distributed training optimization library specifically designed for large-scale model training. Deep-
+Speed’s Zero Redundancy Optimizer (ZeRO) [8] provides multiple stages of memory optimization
+through intelligent partitioning of model states across GPUs:
+•ZeRO Stage 3: Extends partitioning to model parameters themselves, distributing the complete
+model state (parameters, gradients, and optimizer states) across all available GPUs. During for-
+ward and backward passes, required parameters are fetched on-demand via high-bandwidth
+GPU interconnects (NVLink/NVSwitch), enabling training of models that would otherwise be
+impossible to fit on available hardware. This approach reduces per-GPU memory to approxi-
+mately 1/Nof the total model size, with communication overhead minimized through Deep-
+Speed’s optimized collective operations.
+•CPU Offloading: For particularly memory-constrained scenarios, we enable offloading of op-
+timizer states and parameters to CPU RAM during periods when they are not actively required
+for computation. While this introduces CPU-GPU data transfer overhead, the substantially
+larger CPU memory capacity (typically 256-512 GB on our training nodes) provides headroom
+for models that would otherwise trigger OOM errors even with ZeRO partitioning.
+•Gradient Checkpointing Integration: DeepSpeed seamlessly integrates with gradient check-
+pointing (activation recomputation), enabling hybrid memory-computation trade-offs. By se-
+lectively recomputing intermediate activations during backpropagation rather than storing them
+25
+throughout the forward pass, we reduce activation memory by 70-80% at the cost of approx-
+imately 30% additional computation time—an acceptable trade-off for enabling training of
+larger models.
+Figure 16 demonstrates successful training execution after DeepSpeed integration, with the same 7B
+parameter model now training stably across 7 GPUs. The process monitoring panel shows balanced
+GPU memory utilization (approximately 50-56% across all devices) with no OOM errors, confirming
+that ZeRO’s memory optimizations successfully distribute the model state. The training logs indicate
+smooth progression through multiple training steps with consistent gradient computations, validat-
+ing that the optimizations preserve training dynamics while resolving memory constraints.
+Figure 16: Successful training execution of 7B parameter model after DeepSpeed integration with
+ZeRO Stage 3 and CPU offloading. GPU utilization remains stable at 50-56% with no memory errors,
+demonstrating effective distribution of model states across 7 5090 GPUs. Training proceeds smoothly
+with consistent gradient computations and loss convergence.
+Full Fine-Tuning Philosophy.Despite the additional complexity introduced by distributed train-
+ing optimizations, we deliberately maintain a full fine-tuning approach—updating all parameters in
+both vision encoders and language decoders—rather than adopting parameter-efficient fine-tuning
+(PEFT) methods such as LoRA [9] or adapters. This decision reflects several considerations:
+1.Domain Shift Magnitude: Medical radiology represents a substantial domain shift from gen-
+eral vision-language tasks. Full fine-tuning enables comprehensive adaptation of visual feature
+extractors to medical imaging characteristics (tissue contrast, pathological patterns, anatomi-
+cal structures) and language models to specialized medical terminology and reporting conven-
+tions.
+2.Comparative Evaluation: Maintaining consistent full fine-tuning across all model sizes en-
+ables fair comparison of architectural choices and model scale effects, isolated from confound-
+26
+ing factors introduced by different adaptation strategies.
+This infrastructure design—combining advanced memory optimizations with full parameter updates—enables
+rigorous evaluation of model architectures and scale effects under realistic resource constraints, pro-
+viding insights into both performance and practical deployability of large VLMs for clinical radiology
+applications.
+Training Configuration Summary.Table 9 summarizes the memory optimization strategies applied
+to different model scales, demonstrating our adaptive approach to hardware constraints.
+Model Size DeepSpeed Stage CPU Offload Gradient Checkpointing
+1B - 2B parameters Not required No No
+7B - 8B parameters ZeRO Stage 3 Yes Yes
+Table 9: Memory optimization strategies applied across different model scales, with larger models
+requiring progressively more aggressive techniques to fit within available GPU resources
+Hardware Infrastructure:To carry out fine-tuning of the models under realistic academic and com-
+putational constraints, we utilized two different hardware setups based on the size of the models.
+For the lighter 1B-parameter models (e.g., Vintern-1B-v3.5 [1] and InternVL2.5-1B [2]), we conducted
+full-parameter training on a workstation equipped with two NVIDIA RTX 3090 GPUs. Each 3090 GPU
+offers 24GB of VRAM . This setup was sufficient to accommodate full model and batch-level training
+for these smaller architectures, without requiring model sharding or CPU offloading.
+In contrast, training large-scale models such as Lavy-8B [4], Qwen2-VL-7B-Instruct [3], and MiniCPV-
+V-2.6-8B [5] required significantly more computational resources. For these, we deployed a high-
+performance multi-GPU server equipped with five NVIDIA RTX 5090 GPUs, each with 32GB of VRAM.
+This configuration enabled us to perform full fine-tuning (including both the vision encoder and
+LLM components) by leveraging model parallelism, DeepSpeed optimizations, and selective offload-
+ing. The RTX 5090s not only provided ample memory but also offered increased tensor processing
+throughput, accelerating the training of large Transformer-based architectures. The combination of
+DeepSpeed (ZeRO Stage 3), gradient checkpointing, and CPU memory offloading helped us fully uti-
+lize the available resources while avoiding GPU memory overflow (OOM) issues. By carefully match-
+ing model size to appropriate hardware and optimizing training strategies, we ensured that both
+small-scale and large-scale models were trained effectively. This hardware-aware approach allowed
+us to preserve training consistency across model types while maximizing the potential of available
+computational infrastructure..
+4.3 Evaluation Metrics
+To assess the effectiveness of the proposed report generation models, we employ a diverse set of
+metrics. Specifically, we make use of theBLEU Score,ROUGE Score,Precision, andRecall.
+4.3.1 Evaluating Text Generation Quality (Natural Language Generation Metrics)
+In the context of converting visual features into natural language, standard metrics from the ma-
+chine translation literature are adopted to quantify the similarity between the report generated by
+the model and the ground–truth report provided by clinicians.
+27
+BLEU Score.BLEU (Bilingual Evaluation Understudy) evaluates the overlap ofn-grams between the
+generated text and a set of reference texts [10]. The metric combines modifiedn-gram precision with
+a brevity penalty to handle length mismatches.
+The modifiedn-gram precisionp nfor a test corpus is computed as:
+pn=P
+C∈CandidatesP
+n-gram∈C Count clip(n-gram)
+P
+C′∈CandidatesP
+n-gram′∈C′Count(n-gram′)
+where:
+• Count clip(n-gram): clipped count of eachn-gram, limited by its maximum occurrence in any
+single reference
+• Count(n-gram′): total unclipped count ofn-grams in candidate translations
+The overall BLEU score is then calculated as:
+BLEU=BP·exp¡PN
+n=1wnlogp n¢
+where:
+•N: maximumn-gram order considered (typicallyN=4),
+•w n: weight assigned to eachn-gram precision (commonlyw n=1/N),
+• BP: brevity penalty that adjusts for length differences.
+The brevity penalty is defined as:
+BP=
+
+1, ifc>r
+exp³
+1−r
+c´
+, ifc≤r
+where:
+•c: total length of candidate translation corpus
+•r: effective reference corpus length (sum of best match lengths for each candidate sentence)
+ROUGE Scores.ROUGE (Recall–Oriented Understudy for Gisting Evaluation) focuses on recall with
+respect to reference texts [11]. We employ three variants:
+ROUGE-Nmeasuresn-gram recall between candidate and reference summaries:
+ROUGE-N=X
+S∈S refX
+g r am n∈SCount match (g r am n)
+X
+S∈S refX
+g r am n∈SCount(g r am n)
+where:
+•S ref: set of reference summaries
+•g r am n:n-gram of lengthn
+• Count match (g r am n): number of co-occurringn-grams in candidate and references
+• Count(g r am n): totaln-grams in reference summaries
+28
+Specifically:
+•ROUGE-1(n=1): Measures overlap of unigrams (single words), capturing key term recall
+•ROUGE-2(n=2): Measures overlap of bigrams, evaluating phrase-level structure and fluency
+ROUGE-Luses Longest Common Subsequence (LCS) to capture sentence-level structure. Given can-
+didateXof lengthmand referenceYof lengthn, we define:
+Rlcs=LCS(X,Y)
+n,P lcs=LCS(X,Y)
+m
+ROUGE-L=(1+β2)RlcsPlcs
+Rlcs+β2Plcs
+where:
+•R lcs: recall based on LCS, computed as the ratio of the LCS length to the reference lengthn
+•P lcs: precision based on LCS, computed as the ratio of the LCS length to the candidate length
+m
+• LCS(X,Y): length of the longest common subsequence between candidateXand referenceY
+•β: parameter controlling relative importance of precision and recall (typicallyβis set to favor
+recall in summarization evaluation)
+4.3.2 Evaluating Clinical Classification Performance
+Beyond language quality, the core value of the system lies in its accuracy for detecting pathologies.
+The model is therefore also evaluated as a classifier usingPrecisionandRecall, computed over sets
+of "atomic facts" extracted from the generated and reference reports.
+Precision.LetTdenote the set of atomic facts in the generated report andGthe set of atomic facts
+in the ground–truth report. Precision measures the proportion of generated facts that are correct:
+Precision=|T∩G|
+|T|
+where:
+•|T∩G|: number of matched facts between the generated and reference reports
+•|T|: total number of facts produced by the model.
+Recall.Recall measures how many of the ground–truth facts are successfully captured in the gener-
+ated report:
+Recall=|T∩G|
+|G|
+where:
+•|T∩G|: number of matched facts between the generated and reference reports,
+•|G|: total number of ground–truth facts in the reference report.
+29
+High precision indicates that the model produces few incorrect Findings, whereas high recall indi-
+cates that it does not miss important clinical information; both properties are essential for a reliable
+medical diagnosis system.
+30
+5 Methodology 2
+5.1 Dataset
+Figure 17: Overview of the pipeline phase 1 for dataset 2
+5.1.1 Data Analysis
+To elucidate the clinical characteristics and distributional properties of the ViX-Ray dataset, we con-
+duct a comprehensive statistical analysis encompassing anatomical region coverage within the find-
+ings sections of radiology reports. This quantitative analysis provides critical insights into the dataset’s
+composition, clinical diversity, and its potential utility for developing robust radiology report gen-
+eration systems that accurately capture the anatomical specificity inherent in clinical radiological
+interpretation.
+Figure 18: Frequency distribution of anatomical components mentioned in the findings sections
+across 137,930 radiology reports, demonstrating comprehensive cardiopulmonary coverage with
+high-frequency cardiac and pulmonary structure documentation
+31
+Anatomical Coverage in Clinical Findings.Figure 18 presents the frequency distribution of anatom-
+ical components systematically documented in the findings sections of our dataset, revealing the
+comprehensive scope of radiological examination captured in clinical practice. The distribution
+demonstrates a pronounced emphasis on cardiopulmonary structures, withtim(heart) achieving
+remarkable documentation frequency of 100,818 mentions, followed closely byphổi(lungs) with
+66,170 occurrences. This substantial representation underscores the dataset’s strong foundation in
+cardiac and pulmonary imaging—the primary focus areas of chest radiography in clinical medicine.
+The presence of skeletal structures, particularlyxương(bone) with 8,758 mentions, reflects the com-
+prehensive nature of radiological examination where osseous structures are systematically evaluated
+for fractures, degenerative changes, and anatomical variants. Additionally, the documentation of
+phế quản(bronchus, 1,882 mentions) andmàng phổi(pleura, 1,481 mentions) demonstrates the
+dataset’s inclusion of detailed airway and pleural space assessments, which are essential for compre-
+hensive pulmonary evaluation and detection of conditions such as bronchial abnormalities, pleural
+effusions, and pneumothorax.
+Clinical Significance and Dataset Richness.The logarithmic scale distribution observed in Figure 18
+reflects authentic clinical practice patterns where certain anatomical structures naturally receive
+more frequent examination and documentation based on their diagnostic significance and visibil-
+ity in chest radiography. The dominance of cardiac and pulmonary mentions aligns perfectly with
+the primary clinical indications for chest X-ray examinations, including evaluation of cardiac size,
+pulmonary infiltrates, pleural effusions, and other cardiopulmonary pathologies.
+This anatomical frequency distribution provides several advantages for model training and evalua-
+tion. First, the high-frequency documentation of major structures (timandphổi) ensures sufficient
+training examples for models to learn robust representations of these critical anatomical regions.
+Second, the inclusion of moderate-frequency structures such as bones and bronchi enables mod-
+els to develop comprehensive anatomical understanding beyond just the primary organs. Third, the
+natural distribution of anatomical mentions creates realistic training conditions that mirror actual
+clinical reporting patterns, facilitating the development of models that can generate clinically au-
+thentic reports.
+Furthermore, the substantial sample size of 137,930 reports with extensive anatomical documen-
+tation provides unprecedented opportunities for training deep learning models that require large-
+scale data to capture the nuanced variations in anatomical descriptions, spatial relationships, and
+clinical contexts. The rich anatomical vocabulary embedded within these findings demonstrates the
+dataset’s capacity to support the development of vision-language models with sophisticated medical
+domain knowledge and precise anatomical localization capabilities.
+5.1.2 Data Statistic
+To ensure rigorous model evaluation and facilitate reproducible research, we partition the complete
+dataset of 137,930 samples following a standard stratified splitting strategy. The data is divided into
+training, development, and test subsets maintaining an 8:1:1 ratio, as detailed in Table 10.
+Train Development Test
+110,344 13,793 13,793
+Table 10: Dataset partitioning statistics for ViX-Ray, showing distribution across training, develop-
+ment, and test subsets with 8:1:1 ratio
+32
+This partitioning strategy provides a substantial training corpus of 110,344 samples—sufficient for
+training large-scale vision-language models while maintaining statistically significant development
+(13,793 samples) and test sets (13,793 samples) for hyperparameter optimization and unbiased per-
+formance evaluation. The balanced development and test set sizes ensure reliable model assessment
+across diverse clinical scenarios and anatomical presentations, supporting robust conclusions about
+model generalization capabilities in real-world clinical deployment contexts.
+5.2 Model Selection and Scaling Strategy
+Following the comprehensive evaluation of six vision-language model architectures on Dataset 1
+(5,400 samples), we employ a systematic model selection process to identify the optimal architec-
+ture for scaling to the complete dataset. This two-phase approach—initial architecture comparison
+on a curated subset followed by full-scale training of the best-performing model—enables efficient
+exploration of the architectural design space while conserving computational resources.
+5.2.1 Methodology 1: Architecture Evaluation and Selection
+The initial evaluation phase assesses six distinct vision-language architectures across multiple per-
+formance dimensions, including:
+•Generation Quality Metrics: BLEU, ROUGE-L, Precision, and Recall for measuring lexical and
+semantic similarity to reference reports
+•Clinical Accuracy: Domain-specific evaluation of anatomical term precision, diagnostic find-
+ing completeness, and medical terminology correctness
+•Inference Efficiency: Latency and memory footprint considerations for practical clinical de-
+ployment
+•Training Stability: Loss convergence characteristics and gradient behavior throughout fine-
+tuning
+Selection Rationale: Qwen2-VL-7B.Based on comprehensive evaluation across all metrics, we se-
+lect Qwen2-VL-7B [3] as the optimal architecture for scaling to the complete 137,930-sample dataset.
+Qwen2-VL-7B achieves the highest scores across all automated evaluation metrics, demonstrating
+superior capability in generating clinically accurate and linguistically coherent radiology reports. The
+model’s performance advantage is particularly pronounced in ROUGE-L and BLEU, indicating strong
+semantic alignment with reference reports. The Qwen2-VL architecture incorporates several design
+innovations beneficial for medical imaging:
+•Dynamic Resolution Vision Encoder: Unlike fixed-resolution encoders in competing architec-
+tures, Qwen2-VL ’s vision component adaptively processes images at multiple scales, enabling
+capture of both global anatomical context and fine-grained pathological details critical for ac-
+curate diagnosis
+•Vision-Language Alignment: The model employs a sophisticated cross-attention mechanism
+that effectively grounds language generation in visual features, reducing hallucination and im-
+proving anatomical accuracy
+•Multilingual Capabilities: Pre-trained on diverse language data including Vietnamese, Qwen2-
+VL demonstrates stronger baseline performance on Vietnamese medical terminology com-
+pared to English-centric alternatives
+33
+Balanced Scale: At 7B parameters, Qwen2-VL offers an optimal trade-off between model capacity
+and training efficiency. Smaller models (2B) showed insufficient capacity to capture complex medi-
+cal reasoning patterns, while larger models (8B) povided marginal performance gains at substantially
+increased computational cost. Throughout Phase 1 fine-tuning, Qwen2-VL exhibited stable loss con-
+vergence without gradient instabilities or overfitting symptoms, suggesting robust optimization char-
+acteristics likely to generalize to larger datasets. Qualitative assessment by domain experts indicated
+that Qwen2-VL ’s generated reports most closely approximated radiologist writing style, with appro-
+priate use of medical terminology, logical organization of findings, and clinically relevant emphasis
+on significant observations.
+5.2.2 Methodology 2: Full-Scale Training on Complete Dataset
+Having identified Qwen2-VL-7B as the optimal architecture, we proceed to full-scale training on
+Dataset 2 comprising 137,930 samples—a 25.5× increase in training data. This scaling phase aims
+to leverage the substantially larger dataset to improve model generalization, reduce overfitting to
+specific imaging patterns, and enhance coverage of rare pathological conditions underrepresented
+in the smaller subset.
+Hardware InfrastructureDue to the increased computational demands of training a 7B parameter
+model on 137,930 samples, we deploy a distributed training configuration utilizing 7×NVIDIA RTX
+5090 GPUs (24GB VRAM each). This multi-GPU setup provides aggregate memory capacity of 168GB
+and combined computational throughput exceeding 1,000 TFLOPS for BF16 operations, enabling
+reasonable training times while maintaining full fine-tuning without parameter-efficient approxima-
+tions.
+As in Phase 1, we employ DeepSpeed ZeRO Stage 3 with CPU offloading and gradient checkpointing
+to overcome per-GPU memory limitations. The 7-GPU configuration enables near-linear scaling of
+effective batch size through data parallelism while distributing model states to fit within individual
+GPU memory constraints. High-bandwidth NVLink interconnects between GPUs minimize com-
+munication overhead associated with ZeRO’s parameter gathering operations, maintaining training
+efficiency despite distributed memory architecture.
+5.3 Evaluation Metrics
+To evaluate Method 2, we employ the same natural language generation metrics (BLEU, ROUGE) and
+clinical classification metrics (Precision, Recall) as described in Section 4.3 for Method 1.
+In addition, we introduce a new clinical evaluation approach that directly assesses the medical accu-
+racy and completeness of generated reports through expert review:
+5.3.1 Doctor Benchmark
+To assess the real-world clinical utility of the generated reports, we conduct a human evaluation per-
+formed by licensed medical professionals. The trained model is deployed to generate reports for a
+test set of medical images, and these outputs are subsequently evaluated by radiologists with several
+years of clinical experience.
+Each generated report is scored against its corresponding ground-truth reference report based on
+two primary criteria:
+•Diagnostic Accuracy: correctness of pathological findings and clinical observations;
+34
+Figure 19: Web-based evaluation interface for Doctor Benchmark. Radiologists review the X-ray im-
+age (left), compare the generated report against the ground truth (center), and assign a score from
+1-5 based on diagnostic accuracy and information completeness (right).
+•Information Completeness: coverage of all relevant clinical details present in the reference
+report.
+The evaluation employs a 5-point Likert scale:
+Score Criteria
+5 Medically correct; may differ in phrasing but conveys identical clinical meaning
+(e.g., “heart is not enlarged”≡“cardiac silhouette within normal limits”)
+4 Nearly correct; minor missing or extra detail that does not affect the diagnosis
+3 Partially correct; contains significant errors or omissions
+2 Mostly incorrect; only a few keywords match
+1 Completely incorrect or contradictory to the ground truth
+To facilitate systematic evaluation, we developed a web-based annotation interface (Figure 19) that
+presents radiologists with the medical image, both ground-truth and generated reports side-by-side,
+and allows them to assign scores according to the criteria above. This interface ensures consistent
+evaluation conditions across all reviewers and samples.
+The final Doctor Benchmark score for each model is computed as the average score across all evalu-
+ated reports:
+Doctor Score=1
+MPM
+i=1si
+where:
+•M: total number of evaluated reports;
+•s i∈{1,2,3,4,5}: score assigned by the radiologist to thei-th generated report.
+35
+This metric provides a clinically grounded assessment that complements the automated NLG and
+classification metrics, directly measuring whether the generated reports meet the standards required
+for clinical decision-making.
+36
+6 Results and Discussion
+6.1 Results for Methodology 1
+6.1.1 Training Configuration
+To ensure experimental consistency and facilitate reproducible results across all model variants, we
+establish a unified training configuration applied systematically to all six models in our experimental
+framework. This standardized approach enables fair comparative evaluation by isolating the impact
+of architectural differences while controlling for hyperparameter variability.
+The complete training configuration is detailed below:
+Hyper-parameters
+Epoch 20
+Learning rate 3.00E-05
+Batch size 8
+Gradient accumulate 4
+Optim AdamW
+Loss Cross entropy
+Learning rate scheduler Cosine
+Warmup ratio 3%
+Table 11: Summary of Hyperparameters Used During Fine-tuning
+Model Stage Task Epoch GPUs Time (h) Techniques
+Vintern-v3.5 Stage 1 Findings 20 2x3090 2h 35m SFT
+InternVL2.5 - 1B Stage 1 Findings 20 2x3090 2h 33m SFT
+Qwen2VL-2B Stage 1 Findings 20 2x3090 60h SFT
+LaVy Stage 1 Findings 20 7x5090 2h 51m SFT, ZeRO-3, offload CPU
+Qwen2VL-7B Stage 1 Findings 20 7x5090 5h 34m SFT, ZeRO-3, offload CPU
+MiniCPM-V Stage 1 Findings 20 7x5090 17h 2m SFT, ZeRO-3, offload CPU
+Vintern-v3.5 Stage 2 Impressions 20 2x3090 2h 30m SFT
+InternVL2.5 - 1B Stage 2 Impressions 20 2x3090 2h 31m SFT
+Qwen2VL-2B Stage 2 Impressions 20 2x3090 71h SFT
+LaVy Stage 2 Impressions 20 7x5090 2h 50 SFT, ZeRO-3, offload CPU
+Qwen2VL-7B Stage 2 Impressions 20 7x5090 5h 30m SFT, ZeRO-3, offload CPU
+MiniCPM-V Stage 2 Impressions 20 7x5090 16h 51m SFT, ZeRO-3, offload CPU
+Vintern-v3.5 Stage 3 Multi-turn 20 2x3090 4h 37m SFT
+InternVL2.5 - 1B Stage 3 Multi-turn 20 2x3090 4h 1m SFT
+Qwen2VL-2B Stage 3 Multi-turn 20 2x3090 18h SFT
+LaVy Stage 3 Multi-turn 20 7x5090 3h 28m SFT, ZeRO-3, offload CPU
+Qwen2VL-7B Stage 3 Multi-turn 20 7x5090 6h 13m SFT, ZeRO-3, offload CPU
+MiniCPM-V Stage 3 Multi-turn 20 7x5090 22h 1m SFT, ZeRO-3, offload CPU
+Table 12: Training configuration for all models across three stages: Stage 1 (Findings), Stage 2 (Im-
+pressions), and Stage 3 (Multi-turn).
+The adoption of gradient checkpointing with mixed-precision training (BF16/TF32) enables efficient
+37
+memory utilization, allowing training of large vision-language models on available GPU hardware.
+The cosine learning rate schedule with warmup facilitates stable convergence while preventing catas-
+trophic forgetting of pre-trained knowledge. All training runs are logged to Weights & Biases for com-
+prehensive experiment tracking and reproducibility.
+6.1.2 Training Log Analysis
+To systematically evaluate the performance of different architectures, we trained six vision-language
+models using identical datasets and hyperparameters across three progressive stages: Stage 1 (Find-
+ings Generation), Stage 2 (Impressions Generation), and Stage 3 (Multi-turn Conversation).
+Stage 1: Findings GenerationIn the first stage, all models were trained to generate radiological
+findings from chest X-ray images. Figure 20 presents the training and evaluation loss curves for all
+six models. Qwen2-VL-7B demonstrated superior performance with the lowest evaluation loss and
+fastest convergence rate. However, careful examination revealed a subtle divergence between train-
+ing and evaluation losses in later epochs, with a gap of approximately 0.04, indicating early signs of
+overfitting.
+Figure 20: Training and evaluation loss curves for all models in Stage 1 (Findings Generation). Qwen2-
+VL-7B shows the lowest evaluation loss but exhibits a slight divergence from training loss in later
+epochs.
+Stage 2: Impressions GenerationBuilding upon Stage 1, models were fine-tuned to generate clin-
+ical impressions and diagnostic conclusions. As shown in Figure 21, Qwen2-VL-7B continued to
+achieve the best performance metrics under identical training configurations. However, the over-
+fitting pattern became more pronounced, with the train-eval gap maintaining at approximately 0.04,
+suggesting that the model was beginning to memorize specific patterns rather than learning gener-
+alizable medical reasoning.
+38
+Figure 21: Training and evaluation loss curves for all models in Stage 2 (Impressions Generation). The
+overfitting pattern in Qwen2-VL-7B persists with a train-eval gap of approximately 0.04.
+Stage 3: Multi-turn ConversationFor the final stage, all models were trained on multi-turn conver-
+sational data to enable interactive diagnostic dialogue capabilities. Figure 22 illustrates the training
+dynamics across all architectures. Given the critical nature of medical diagnosis and the paramount
+importance of model generalization in clinical settings, we carefully evaluated the trade-off between
+performance and robustness.
+39
+Figure 22: Training and evaluation loss curves for all models in Stage 3 (Multi-turn Conversation).
+Models show varying degrees of convergence and generalization capability.
+Model Selection for Final Fine-tuningDespite Qwen2-VL-7B achieving the highest benchmark
+scores in Stage 1 and Stage 2, the observed overfitting tendency raised concerns about its reliability on
+unseen patient cases. In medical applications, model robustness and generalization are paramount,
+as misdiagnosis can have serious clinical consequences. Therefore, we prioritized stable training
+dynamics over marginal performance gains and selected an alternative model architecture for com-
+prehensive fine-tuning on the expanded dataset of 137,930 multi-turn conversations.
+Figure 23 presents the detailed training logs of the selected model in Stage 3. The model demonstrates
+stable convergence with minimal train-eval divergence, indicating strong generalization capability
+suitable for medical deployment. This balanced approach ensures that the final model maintains
+high performance while being reliable across diverse patient cases.
+40
+Figure 23: Detailed training dynamics of the selected model in Stage 3, fine-tuned on 137,930 multi-
+turn conversations. The model demonstrates stable convergence with minimal train-eval divergence.
+6.1.3 Experiment Setup
+Dev Test
+RougeBleu Precision RecallRougeBleu Precision Recall1 2 L 1 2 L
+Stage 1 - Findings Generation
+MonolingualVintern-v3.5 81.79 71.71 75.99 61.91 57.25 56.74 81.90 72.10 76.21 61.39 56.25 56.12
+LaVy 81.95 71.08 76.91 69.11 61.54 61.12 82.12 71.35 77.25 69.58 62.48 61.52
+MultilingualInternVL2.5 - 1B 66.29 47.18 51.06 62.09 56.24 55.12 65.67 46.82 50.57 61.94 56.24 55.12
+Qwen2VL-2B 83.40 75.25 79.03 69.42 61.42 60.24 83.87 75.56 79.27 70.21 62.21 61.45
+Qwen2VL-7B 84.09 76.77 81.11 70.11 68.91 69.94 84.30 76.10 81.21 71.22 70.51 70.21
+MiniCPM-V 83.21 73.21 79.98 69.24 67.56 66.12 83.25 72.97 79.81 70.12 68.12 65.25
+Stage 2 - Impressions Generation
+MonolingualVintern-v3.5 62.82 52.16 57.98 51.13 56.74 49.06 60.83 50.85 56.25 51.91 56.41 50.14
+LaVy 70.14 62.15 68.45 57.02 57.49 51.21 70.25 61.58 67.78 57.45 57.65 52.74
+MultilingualInternVL2.5-1B 61.65 41.08 54.22 62.10 51.21 48.51 69.05 42.79 56.22 62.02 52.35 49.32
+Qwen2VL-2B 73.26 64.31 70.81 57.11 54.38 53.73 71.75 62.48 69.27 57.39 55.01 53.12
+Qwen2VL-7B 74.17 65.75 71.81 60.11 60.58 61.94 73.89 64.66 71.11 59.56 61.25 62.14
+MiniCPM-V 71.12 63.31 69.28 58.12 58.49 50.84 70.16 61.97 68.25 57.25 57.48 40.22
+Table 13: Fine-tuning results of VLMs inStage 1 – findings generationandStage 2 – impressions
+generation(%). We present only the results obtained after fine-tuning. The results before fine-tuning
+are provided in Appendix 6.1.5.
+In this section, we present and analyze the performance of the VLM models on both the development
+and test sets after fine-tuning on the ViX-Ray dataset. The results from Stage 1 and Stage 2 are shown
+in Table 13, while the results from Stage 3 are illustrated in Table 16. Additionally, we provide the
+performance of the VLMs before fine-tuning in Appendix 6.1.5.
+Monolingual Result:The results in Stage 1 – findings generation – show that both LaVy and Vintern-
+v3.5 are capable of producing observations similar to those written by radiologists, as reflected by
+BLEU and ROUGE scores. However, both models perform poorly in terms of precision and recall, in-
+dicating difficulties in capturing all the clinically relevant details. In Stage 2 - impressions generation
+41
+- both models exhibit a noticeable drop in performance, particularly in lexical metrics, suggesting
+challenges in generating accurate impressions. Furthermore, low recall scores point to the presence
+of redundant or irrelevant information in their outputs. These results highlight the difficulty of our
+ViX-Ray dataset, which demands not only accuracy but also conciseness, posing a substantial chal-
+lenge for current vision-language models.
+Multilingual Result:The results in Table 13 show that among the multilingual models—InternVL2.5,
+Qwen2-VL (2B and 7B), and MiniCPM-V—InternVL2.5 consistently underperforms, with lexical scores
+averaging 20% lower and precision/recall scores averaging over 7% lower across both the findings and
+impressions generation stages. In contrast, Qwen2-VL-7B stands out as the top performer, not only
+among multilingual models but across all models evaluated, consistently achieving over 60% across
+all metrics in both stages. This highlights the advantages of its architectural design and the substan-
+tial Vietnamese data it was trained on, enabling stronger image-text alignment, especially in medical
+domains such as X-ray interpretation. However, similar to monolingual models, multilingual models
+also exhibit a decline in performance during the impression generation stage. As illustrated in the
+examples in Appendix 6.1.6, impressions typically consist of 1–2 concise clinical diagnoses. Still, the
+models often generate redundant information, which contributes to reduced performance on our
+ViX-Ray dataset.
+Multi-turn Generation:The results in Table 16 indicate that most models exhibited a slight decline in
+performance when tasked with generating both findings and impressions in a multi-turn setting, as
+observed with models such as Vintern-v3.5 and InternVL2.5. In contrast, larger models like Qwen2-
+VL-7B and MiniCPM-V (8B) demonstrated notable improvements across all evaluation metrics, in-
+cluding lexical quality, precision, and recall. For example, Qwen2-VL-7B achieved a substantial boost
+in impressions generation, with average lexical scores increasing by more than 20%, alongside ex-
+pected gains in factual accuracy by more than 29% both precision and recall metrics. These findings
+suggest that multi-turn training more accurately mirrors the diagnostic reasoning process of radiol-
+ogists, where findings are first described before clinical conclusions are drawn, and underscore the
+robustness of larger models when fine-tuned on a comprehensive Vietnamese instruction dataset.
+6.1.4 Experimental Results
+In this section, we present and analyze the performance of the VLM models on both the development
+and test sets after fine-tuning on the ViX-Ray dataset. The results from Stage 1 and Stage 2 are shown
+in Table 13, while the results from Stage 3 are illustrated in Table 16. Additionally, we provide the
+performance of the VLMs before fine-tuning in Appendix 6.1.5.
+Monolingual Result:The results in Stage 1 – findings generation – show that both LaVy and Vintern-
+v3.5 are capable of producing observations similar to those written by radiologists, as reflected by
+BLEU and ROUGE scores. However, both models perform poorly in terms of precision and recall, in-
+dicating difficulties in capturing all the clinically relevant details. In Stage 2 - impressions generation
+- both models exhibit a noticeable drop in performance, particularly in lexical metrics, suggesting
+challenges in generating accurate impressions. Furthermore, low recall scores point to the presence
+of redundant or irrelevant information in their outputs. These results highlight the difficulty of our
+ViX-Ray dataset, which demands not only accuracy but also conciseness, posing a substantial chal-
+lenge for current vision-language models.
+Multilingual Result:The results in Table 13 show that among the multilingual models—InternVL2.5,
+Qwen2-VL (2B and 7B), and MiniCPM-V—InternVL2.5 consistently underperforms, with lexical scores
+averaging 20% lower and precision/recall scores averaging over 7% lower across both the findings and
+42
+impressions generation stages. In contrast, Qwen2-VL-7B stands out as the top performer, not only
+among multilingual models but across all models evaluated, consistently achieving over 60% across
+all metrics in both stages. This highlights the advantages of its architectural design and the substan-
+tial Vietnamese data it was trained on, enabling stronger image-text alignment, especially in medical
+domains such as X-ray interpretation. However, similar to monolingual models, multilingual models
+also exhibit a decline in performance during the impression generation stage. As illustrated in the
+examples in Appendix 6.1.6, impressions typically consist of 1–2 concise clinical diagnoses. Still, the
+models often generate redundant information, which contributes to reduced performance on our
+ViX-Ray dataset.
+Multi-turn Generation:The results in Table 16 indicate that most models exhibited a slight decline in
+performance when tasked with generating both findings and impressions in a multi-turn setting, as
+observed with models such as Vintern-v3.5 and InternVL2.5. In contrast, larger models like Qwen2-
+VL-7B and MiniCPM-V (8B) demonstrated notable improvements across all evaluation metrics, in-
+cluding lexical quality, precision, and recall. For example, Qwen2-VL-7B achieved a substantial boost
+in impressions generation, with average lexical scores increasing by more than 20%, alongside ex-
+pected gains in factual accuracy by more than 29% both precision and recall metrics. These findings
+suggest that multi-turn training more accurately mirrors the diagnostic reasoning process of radiol-
+ogists, where findings are first described before clinical conclusions are drawn, and underscore the
+robustness of larger models when fine-tuned on a comprehensive Vietnamese instruction dataset.
+6.1.5 Training Result
+In this section, we present the results of various Visual Language Models (VLMs) on our ViX-Ray
+dataset, both before and after the fine-tuning process.
+Findings Generation Training ResultAs shown in Table 14, fine-tuning significantly improved the
+performance of the VLMs. This enhancement was particularly notable in the accuracy of generated
+information, as evidenced by substantial gains in both precision and recall.
+43
+Dev Test
+RougeBleu Precision RecallRougeBleu Precision Recall1 2 L 1 2 L
+None Fine-tune
+MonolingualVintern-v3.5 43.04 11.10 23.70 5.49 0.01 0.01 42.78 10.89 23.72 5.94 0.01 0.01
+LaVy 45.53 12.06 25.32 19.52 0.01 0.01 45.68 12.01 25.60 10.66 0.01 0.01
+MultilingualInternVL2.5 50.27 10.31 24.95 2.87 0.01 0.01 50.21 10.31 24.97 3.08 0.01 0.01
+Qwen2VL-2B 44.54 10.53 24.81 1.10 0.01 0.01 45.74 10.81 25.24 1.20 0.01 0.01
+Qwen2VL-7B 54.31 11.17 30.35 1.20 0.01 0.01 54.22 11.18 30.19 1.10 0.01 0.01
+MiniCPM-V 27.18 5.71 15.49 1.49 0.01 0.01 26.64 5.76 15.12 1.59 0.01 0.01
+Fine-tuning
+MonolingualVintern-v3.5 81.79 71.71 75.99 61.91 57.25 56.74 81.90 72.10 76.21 61.39 56.25 56.12
+LaVy 81.95 71.08 76.91 69.11 61.54 61.12 82.12 71.35 77.25 69.58 62.48 61.52
+MultilingualInternVL2.5 66.29 47.18 51.06 62.09 56.24 55.12 65.67 46.82 50.57 61.94 56.24 55.12
+Qwen2VL-2B 83.40 75.25 79.03 69.42 61.42 60.24 83.87 75.56 79.27 70.21 62.21 61.45
+Qwen2VL-7B 84.09 76.77 81.11 70.11 68.91 69.94 84.30 76.10 81.21 71.22 70.51 70.21
+MiniCPM-V 83.21 73.21 79.98 69.24 67.56 66.12 83.25 72.97 79.81 70.12 68.12 65.25
+Table 14: Results of Stage 1 - findings generation on the ViX-Ray dataset (%), we report the perfor-
+mance of models before and after the fine-tuning process.
+Table 14 summarizes the performance of all evaluated VLMs on the findings generation task before
+and after fine-tuning. Overall, the results show dramatic improvements across all metrics, confirm-
+ing that supervised training on domain-specific radiology data is highly effective for enhancing the
+accuracy and completeness of generated findings.
+Before fine-tuning, both monolingual and multilingual models perform poorly in terms of precision
+and recall, with values close to 0.01 across most models. This suggests that pretrained VLMs—despite
+strong general-language capabilities—struggle to reliably extract clinically relevant abnormalities
+from chest X-rays without explicit supervision. ROUGE-2 and BLEU scores are also extremely low,
+highlighting limited ability to reproduce structured, radiology-style findings.
+After fine-tuning, all models exhibit substantial and consistent performance gains. For monolingual
+models, Vintern-v3.5 improves from ROUGE-2 of 11.10 to 71.71, and BLEU from 5.49 to 61.91, while
+precision and recall increase to 57.25 and 56.74, respectively. LaVy demonstrates similar strong im-
+provements, achieving 77.25 ROUGE-L, 69.11 BLEU, and over 61 recall, indicating that monolingual
+training benefits greatly from alignment with Vietnamese clinical text. Among multilingual mod-
+els, Qwen2VL-2B and InternVL2.5 both show major enhancements, but Qwen2VL-7B emerges as
+the strongest performer. After fine-tuning, it reaches 84.09 ROUGE-1, 76.77 ROUGE-2, and 81.11
+ROUGE-L on the Dev set, with corresponding Test-set scores remaining similarly high. BLEU (70.11),
+precision (68.91), and recall (69.94) are also superior to all other models, confirming that larger VLMs—with
+stronger generalization capacity—are better at incorporating supervised radiology knowledge to pro-
+duce accurate, detailed findings. MiniCPM-V , despite showing notable gains after fine-tuning, still
+lags behind larger architectures, suggesting that model capacity plays a significant role in findings
+extraction. Nonetheless, its post-training improvements demonstrate that even small multilingual
+models can benefit from targeted medical supervision.
+These results highlight two key insights. First, pretrained VLMs have limited out-of-the-box capabil-
+ity for findings generation, underscoring the domain specificity and high precision requirements of
+44
+medical imaging language tasks. Second, fine-tuning is highly effective, enabling even weaker mod-
+els to achieve clinically meaningful performance, while larger models such as Qwen2VL-7B achieve
+the best overall accuracy and consistency.
+Impressions Generation Training ResultTable 15 illustrates the evaluation results of VLMs for
+Stage 2 - impression generation, both before and after fine-tuning. Similar to the outcomes observed
+in Stage 1 - findings generation, the models in Stage 2 also demonstrated a significant performance
+improvement, with increases across various lexical and contextual metrics. However, the overall re-
+sults remain suboptimal, indicating that current VLMs still face challenges in generating impressions
+with human-level accuracy.
+Dev Test
+RougeBleu Precision RecallRougeBleu Precision Recall1 2 L 1 2 L
+None Fine-tune
+MonolingualVintern-v3.5 25.39 8.07 18.53 5.44 0.01 0.01 25.27 8.00 18.35 4.67 0.01 0.01
+LaVy 27.94 8.62 20.39 11.81 0.01 0.01 27.69 8.50 20.08 12.77 0.01 0.01
+MultilingualInternVL2.5 26.41 7.33 18.59 3.84 0.01 0.01 26.76 7.22 18.44 3.28 0.01 0.01
+Qwen2VL-2B 20.74 5.90 14.37 1.10 0.01 0.01 21.45 5.99 14.65 1.20 0.01 0.01
+Qwen2VL-7B 31.77 7.80 18.06 1.20 0.01 0.01 31.74 8.00 18.06 1.10 0.01 0.01
+MiniCPM-V 14.82 3.72 10.93 1.04 0.01 0.01 15.81 3.84 11.25 1.20 0.01 0.01
+Fine-tuning
+MonolingualVintern-v3.5 62.82 52.16 57.98 51.13 56.74 49.06 60.83 50.85 56.25 51.91 56.41 50.14
+LaVy 70.14 62.15 68.45 57.02 57.49 51.21 70.25 61.58 67.78 57.45 57.65 52.74
+MultilingualInternVL2.5 61.65 41.08 54.22 52.10 51.21 48.51 69.05 42.79 56.22 52.02 52.35 49.32
+Qwen2VL-2B 73.26 64.31 70.81 57.11 54.38 53.73 71.75 62.48 69.27 57.39 55.01 53.12
+Qwen2VL-7B 74.17 65.75 71.81 60.11 60.58 61.94 73.89 64.66 71.11 59.56 61.25 62.14
+MiniCPM-V 71.12 63.31 69.28 58.12 58.49 50.84 70.16 61.97 68.25 57.25 57.48 40.22
+Table 15: Results of Stage 2 - impressions generation on the ViX-Ray dataset (%), we report the per-
+formance of models before and after the fine-tuning process.
+Table 15 presents the performance of all evaluated VLMs on the impression generation task before
+and after fine-tuning. Overall, the results reveal a clear and consistent trend: fine-tuning substantially
+improves lexical and contextual metrics across all models, regardless of their scale or pretraining
+paradigm.
+Monolingual models show particularly strong gains. For example, Vintern-v3.5 improves from ex-
+tremely low pre-fine-tuning scores (e.g., ROUGE-2 of only 8.07 on the Dev set) to 52.16 ROUGE-2,
+51.13 BLEU, and 49.06 Precision, representing an improvement of more than +40 ROUGE-2. Similarly,
+LaVy exhibits notable enhancements, reaching 62.15 ROUGE-2 and 57.02 BLEU on the Dev set after
+fine-tuning. These results suggest that monolingual models benefit substantially from exposure to
+supervised Vietnamese radiology data. Among multilingual models, fine-tuning also leads to signifi-
+cant performance boosts. Qwen2VL-2B demonstrates large improvements, achieving 64.31 ROUGE-
+2, 57.11 BLEU, and 54.38 Precision after fine-tuning on the Dev set. InternVL2.5 shows more moder-
+ate but consistent gains, particularly in ROUGE-L and precision-based metrics. Notably, MiniCPM-
+V—which starts with very weak performance before fine-tuning—also benefits strongly from super-
+vision, although it lags behind larger models in both ROUGE and BLEU. The best overall performance
+45
+is obtained by Qwen2VL-7B, which clearly stands out among the evaluated VLMs. After fine-tuning, it
+achieves the highest scores across nearly all metrics, reaching 74.17 ROUGE-1, 65.75 ROUGE-2, 71.81
+ROUGE-L, and 60.11 BLEU on the Dev set, and exhibiting similar trends on the Test set. These results
+show that large-scale multilingual VLMs are able to effectively absorb domain-specific supervision
+and generate clinically appropriate impressions with high fidelity.
+Despite the substantial improvements achieved through fine-tuning, the absolute scores—particularly
+BLEU and ROUGE-2—remain below human-level performance. This underscores the intrinsic dif-
+ficulty of generating clinically accurate impressions, which often require multi-step reasoning, con-
+sistency with findings, and nuanced understanding of radiological language. Models still struggle
+with capturing subtle abnormalities and generating coherent, structured clinical summaries. Taken
+together, these results highlight two key observations: (1) fine-tuning is essential and highly benefi-
+cial, especially for smaller or weaker VLMs whose pretrained capabilities are insufficient for medical
+report generation; and (2) model scale plays a critical role, with larger models such as Qwen2VL-7B
+demonstrating the strongest ability to internalize and utilize domain-specific supervision.
+Multi-turn Generation Training ResultFor Stage 3 - multi-turn generation, we only report the post-
+fine-tuning results of the VLMs.
+Our findings, illustrated in Table 16, demonstrate that employing a multi-turn approach enhances
+model performance. This aligns with how doctors typically assess patient conditions and formulate
+diagnoses. However, multi-turn fine-tuning is only effective for larger models that have already been
+trained on extensive instruction datasets, such as Qwen2-VL in our study.
+46
+Rouge
+Bleu Precision Recall
+1 2 L
+Dev
+MonolingualVintern-v3.5Findings 42.48 25.14 31.98 48.53 47.54 46.48
+Impression 49.36 29.23 43.86 42.36 47.51 48.12
+LaVyFindings 82.96 74.02 76.21 66.92 55.41 55.12
+Impression 70.12 59.84 67.21 55.07 41.25 56.52
+MultilingualInternVL2.5Findings 56.16 33.21 40.48 57.61 41.54 42.01
+Impression 39.64 17.41 30.47 44.34 42.45 41.55
+Qwen2VL-2BFindings 80.24 71.44 75.61 66.06 64.84 63.55
+Impression 78.07 75.11 76.91 66.58 73.23 68.71
+Qwen2VL-7BFindings 84.81 76.97 80.47 71.35 70.34 72.28
+Impression 95.93 94.34 95.08 92.04 92.14 92.11
+MiniCPM-VFindings 84.25 74.41 77.61 69.23 65.57 67.88
+Impression 70.86 61.95 69.42 57.91 45.86 53.59
+Test
+MonolingualVintern-v3.5Findings 43.87 26.38 33.07 48.23 46.52 45.12
+Impression 49.93 29.84 44.29 43.84 46.85 47.25
+LaVyFindings 83.51 73.89 75.85 67.54 54.98 54.52
+Impression 69.52 60.12 66.52 54.74 40.95 55.41
+MultilingualInternVL2.5Findings 55.87 33.49 40.32 64.01 41.33 42.51
+Impression 39.07 16.38 30.20 54.09 42.25 41.18
+Qwen2VL-2BFindings 80.28 71.9 75.93 66.86 65.24 64.15
+Impression 76.13 72.44 75.13 65.32 68.34 66.21
+Qwen2VL-7BFindings 84.41 75.90 79.60 69.85 69.78 70.60
+Impression 95.20 93.80 94.68 89.75 89.95 90.88
+MiniCPM-VFindings 84.39 74.27 77.44 68.74 64.27 66.58
+Impression 70.55 61.25 68.08 56.11 44.21 53.12
+Table 16: Results of Stage 3 - multi-turn generation on the ViX-Ray dataset (%), we report the perfor-
+mance of models before and after the fine-tuning process.
+Overall, the results in Table 16 demonstrate that multi-turn fine-tuning yields notable performance
+improvements, especially for large multilingual models. The most significant gains are observed in
+the Qwen2VL series. For example, Qwen2VL-7B achieves an improvement of up to+31.93 BLEU,
++28.70 Precision, and+28.74 Recallon impression generation in the test set, compared to its single-
+turn counterpart. These improvements are more pronounced in theImpressiontask, which benefits
+from the contextual information provided by the preceding findings.
+In contrast, smaller models such as Vintern-v3.5 and InternVL2.5 exhibit performance degradation
+47
+across nearly all metrics. For example, Vintern-v3.5 shows a drop of45.72 ROUGE-2and11.00 Re-
+callin the generation of findings. This suggests that multi-turn fine-tuning may introduce additional
+reasoning complexity that these lightweight models cannot effectively handle, likely due to limited
+capacity and insufficient pretraining on instruction-following data. Moreover, while moderate-sized
+models like Qwen2VL-2B and MiniCPM-V show partial improvements, the performance gains re-
+main substantially lower than those observed in their larger counterparts. This indicates that the
+effectiveness of multi-turn fine-tuning is closely tied to both model scale and the robustness of the
+pretraining corpus.
+Taken together, these results highlight a clear trend:multi-turn generation is not universally ben-
+eficial but instead highly dependent on model capacity and pretraining richness. Larger mod-
+els—most notably Qwen2VL-7B—are capable of leveraging cross-turn contextual dependencies to
+produce more coherent and clinically aligned impressions. In contrast, smaller models not only fail
+to capitalize on the additional interaction structure but in some cases experience performance degra-
+dation, indicating that multi-turn reasoning introduces cognitive demands beyond their representa-
+tional capability. These findings suggest that the advantages of multi-turn fine-tuning stem from a
+model’s ability to integrate and propagate information across turns, a capability strongly tied to both
+model size and the diversity of its instruction-tuning corpus. Consequently, adopting multi-turn gen-
+eration may be most suitable for high-capacity models, while lighter models may require additional
+architectural priors or curriculum learning strategies to effectively handle multi-step clinical reason-
+ing.
+6.1.6 Generation Example
+Findings Generation - ExampleWe demonstrate an example of the Qwen2-VL-7B model output in
+Stage 1 – findings generation. We also provide evaluations using precision and recall metrics, based
+on correctly generated information (highlighted in blue), incorrect information (highlighted in red),
+and missing information compared to the ground truth (highlighted in purple). The example is illus-
+trated in Table 17.
+48
+Ground-Truth Inference Precision Recall
+"Lồng ngực cân đối không thấy
+bất thường xương. Phổi hai bên
+kém sáng mờ kính rải rác rốn
+phổi tăng đậm nhẹ. Bờ vòm
+hoành hai bên đều hai góc
+sườn hoành nhọn. Bóng mờ tim
+không to. Quai động mạch chủ
+vồng."
+(The thoracic cage is symmetrical
+with no visible bone abnormalities.
+Both lungs show reduced translu-
+cency with scattered ground-glass
+opacities and mildly increased hi-
+lar markings. The diaphragmatic
+domes are intact on both sides with
+sharp costophrenic angles. The
+cardiac silhouette is not enlarged.
+The aortic arch appears promi-
+nent.)"Phổi hai bên kém sáng mờ kính
+rải rác rốn phổi tăng đậm nhẹ.
+Bờ vòm hoành hai bên đều hai
+góc sườn hoành nhọn. Bóng mờ
+tim không to. Vôi hóa thành quai
+động mạch chủ."
+(Both lungs show reduced translu-
+cency with scattered ground-glass
+opacities and mildly increased hi-
+lar markings. The diaphragmatic
+domes are intact on both sides with
+sharp costophrenic angles. The
+cardiac silhouette is not enlarged.
+Calcification is seen in the wall of
+the aortic arch.)85.71% 66.67%
+Table 17: Illustrative example of the Qwen2-VL-7B model output at Stage 1 – findings generation. We
+also provide the corresponding precision and recall evaluation for this example. In the visualization,
+blue highlights denote correctly generated findings, red indicates incorrect information, and purple
+marks findings from the ground truth that the model failed to generate.
+Impressions Generation - ExampleFollowing the illustrative example of the Qwen2-VL-7B model
+in Stage 1, we further present an example of its output after fine-tuning for Stage 2 – impressions
+generation, as shown in Table 18.
+Ground-Truth Inference Precision Recall
+"Hình ảnh nghĩ nhiều đến tổn
+thương phổi kẽ. Bóng mờ tim to.
+Vôi hóa thành quai động mạch
+chủ."
+(The image suggests interstitial
+lung disease. The cardiac silhou-
+ette appears enlarged. Calcifica-
+tion is noted along the aortic arch
+wall.)"Hình ảnh nghĩ nhiều đến tổn
+thương phổi kẽ. Bóng mờ tim to.
+Quai động mạch chủ vồng."
+(The image suggests interstitial
+lung disease. The cardiac silhou-
+ette appears enlarged. The aortic
+arch appears prominent.)66.67% 66.67%
+Table 18: Illustrative example of the Qwen2-VL-7B model output at Stage 2 – impressions generation.
+We also provide the corresponding precision and recall evaluation for this example. In the visual-
+ization, blue highlights denote correctly generated findings, red indicates incorrect information, and
+purple marks findings from the ground truth that the model failed to generate.
+Multi-turn Generation - ExampleFor Stage 3 – multi-turn generation, we illustrate the output of
+the Qwen2-VL-7B model in Table 25. The example demonstrates that multi-turn fine-tuning enables
+49
+the model to better understand the diagnostic nature of impressions, resulting in generated outputs
+that are more aligned with the ground truth. This performance surpasses that of models trained
+solely on impressions in Stage 2 (see 6.1.6 for comparison).
+Ground-Truth Inference Precision Recall
+Findings:"Phổi hai bên kém
+sáng mờ kính rải rác rốn phổi
+tăng đậm nhẹ. Bờ vòm hoành
+hai bên đều hai góc sườn hoành
+nhọn. Bóng mờ tim không to các
+cung tim trong giới hạn sinh lý."
+(Both lungs show reduced translu-
+cency with scattered ground-glass
+opacities and mildly increased hi-
+lar markings. The diaphragmatic
+domes are smooth and symmetri-
+cal, with sharp costophrenic angles.
+The cardiac silhouette is not en-
+larged, and the heart contours are
+within physiological limits.)"Lồng ngực cân đối không thấy
+bất thường xương. Phổi hai bên
+kém sáng mờ kính rải rác rốn
+phổi tăng đậm nhẹ. Bờ vòm
+hoành hai bên đều hai góc
+sườn hoành nhọn. Bóng mờ tim
+không to các cung tim trong giới
+hạn sinh lý."
+(The chest is symmetrical with no
+visible bone abnormalities. Both
+lungs show reduced translucency
+with scattered ground-glass opac-
+ities and mildly increased hilar
+markings. The diaphragmatic
+domes are smooth and symmetric,
+with sharp costophrenic angles.
+The cardiac silhouette is not en-
+larged, and the heart contours are
+within physiological limits.)77.78% 100%
+Impressions:"Hình ảnh nghĩ
+nhiều đến tổn thương phổi kẽ."
+(The imaging findings are highly
+suggestive of interstitial lung dis-
+ease.)"Hình ảnh nghĩ nhiều đến tổn
+thương phổi kẽ."
+(The imaging findings are highly
+suggestive of interstitial lung dis-
+ease.)100% 100%
+Table 19: Illustrative example of the Qwen2-VL-7B model output at Stage 3 – multi-turn generation.
+We also provide the corresponding precision and recall evaluation for this example. In the visual-
+ization, blue highlights denote correctly generated findings, red indicates incorrect information, and
+hallucinated or redundant details not present in the ground truth are in orange.
+6.2 Results for Methodology 2
+6.2.1 Training Configuration
+The transition from 5,400 to 137,930 training samples necessitates careful reconsideration of hyper-
+parameters to ensure effective utilization of increased data while preventing optimization patholo-
+gies that may arise at larger scale. Initial experiments using Phase 1’s configuration (20 epochs, batch
+size 1) revealed suboptimal convergence characteristics: the model exhibited slow adaptation to the
+broader distribution of imaging patterns in the expanded dataset, with validation loss plateauing
+prematurely.
+To address these challenges, we perform targeted hyperparameter adjustments guided by learning
+dynamics analysis and validation performance monitoring. Table 20 presents the optimized config-
+uration for full-scale training.
+50
+Training Hyperparameters
+Number of Epochs 6
+Learning Rate 3×10−5
+Batch Size (per device) 15
+Gradient Accumulation Steps 1
+Optimizer AdamW
+Loss Function Cross-Entropy
+Learning Rate Scheduler Cosine with Restarts
+Warmup Ratio 3%
+Gradient Clipping 0.3
+Precision BF16 + TF32
+Table 20: Optimized hyperparameters for full-scale training on Dataset 2 (137,930 samples). Key
+modifications from Phase 1 include reduced epochs (6 vs. 20), increased batch size (15 vs. 1), and
+cosine schedule with restarts for improved convergence.
+Rationale for Configuration Changes:
+•Reduced Epochs (20→6): The 25.5× increase in training data provides substantially more gra-
+dient updates per epoch. With 137,930 samples and batch size 15, each epoch comprises ap-
+proximately 9,195 optimization steps (compared to 360 steps in Phase 1). To prevent overfitting
+while ensuring sufficient exposure to the complete dataset, we reduce total epochs to 6, yield-
+ing approximately 73,560 total updates—still 204× more than Phase 1 despite fewer epochs.
+•Increased Batch Size (1→15): Larger batch sizes provide more stable gradient estimates, crit-
+ical when training on diverse data distributions. The increase from 1 to 15 samples per de-
+vice reduces gradient variance by approximately 3-4×, enabling more aggressive learning rate
+schedules and faster convergence. With 7 GPUs and batch size 15, the effective global batch
+size reaches 105 samples per update, providing robust statistics for parameter updates while
+remaining computationally tractable.
+•Cosine Schedule with Restarts: We adopt a cosine annealing schedule with periodic restarts [?
+] rather than simple cosine decay. This schedule periodically "restarts" the learning rate to
+higher values before decaying again, enabling the optimizer to escape local minima and ex-
+plore different regions of the loss landscape. For large-scale training where suboptimal conver-
+gence is a greater risk, restarts provide a mechanism for recovery without manual intervention
+or hyperparameter tuning.
+•Maintained Learning Rate (3×10−5): Despite batch size increases, we maintain the conserva-
+tive learning rate to preserve training stability. While larger batch sizes typically permit higher
+learning rates, the diversity of imaging patterns in the expanded dataset introduces additional
+gradient noise that counteracts batch size benefits, justifying retention of the original learning
+rate.
+Training Efficiency and Convergence.The optimized configuration achieves substantially improved
+training efficiency compared to naively scaling Phase 1 settings. Validation loss monitoring reveals
+steady convergence throughout all 8 epochs with no signs of overfitting or gradient instabilities. The
+cosine schedule with restarts enables the model to achieve lower final validation loss compared to
+simple decay schedules, suggesting successful navigation of the complex loss landscape associated
+with large-scale medical image-text alignment.
+51
+Total training time for the complete 8-epoch run on Dataset 2 is approximately on our 7×RTX 5090
+configuration, demonstrating practical feasibility of full fine-tuning approaches even for large vision-
+language models when appropriate distributed training optimizations are employed.
+Model Stage Task Epoch GPUs Time (h) Techniques
+Qwen2VL-7B Stage 3 Multi-turn 8 7x5090 69h SFT, ZeRO-3, offload CPU
+Table 21: Training configuration for all models across stages: Stage 3 (Multi-turn).
+6.2.2 Training Log
+Figure 24: Training logs ofQwen2VL-7Btrain with data 137k samples in stage 3
+6.2.3 Training Result
+Dev Test
+RougeBleu Precision RecallRougeBleu Precision Recall1 2 L 1 2 L
+Stage 3 - Multi-turn Generation
+Qwen2-VL-7BFindings 70.62 65.52 67.57 70.51 70.12 71.25 71.21 66.21 68.12 71.12 71.53 71.25
+Impressions 89.61 85.71 88.63 88.12 80.19 80.17 90.12 86.11 89.25 89.21 81.22 80.89
+Table 22: Fine-tuning results of VLMs inStage 3 - Multi-turn Generation(%). We present only the
+results obtained after fine-tuning.
+Table 22 presents the quantitative evaluation of our three-stage training approach on both develop-
+ment and test sets. We observe consistent improvements across all metrics as the training progresses
+through the stages, with particularly notable gains in Stage 3’s multi-turn generation framework.
+Stage 3: Multi-turn Generation Framework.The multi-turn approach yields substantial improve-
+ments across both report sections:
+Findings Generation:Stage 3 achieves 71.21% ROUGE-1, 71.12% BLEU, 71.53% Precision, and 71.25%
+Recall on the test set—representing absolute improvements of 10.09, 9.87, 11.01, and 9.97 percent-
+age points respectively over Stage 1. These gains demonstrate that the multi-turn dialogue structure,
+52
+which allows the model to iteratively refine its understanding through conversational context, signif-
+icantly enhances the quality and clinical accuracy of findings generation.
+Impressions Generation:The most dramatic improvements occur in impressions generation, where
+Stage 3 achieves 90.12% ROUGE-1, 89.21% BLEU, 81.22% Precision, and 80.89% Recall on the test set.
+Compared to Stage 2’s isolated training, these represent remarkable absolute gains of 40.03, 38.19,
+30.33, and 29.81 percentage points respectively. This substantial improvement validates our hypoth-
+esis that impressions generation benefits critically from access to previously generated findings con-
+text. The multi-turn framework enables the model to synthesize high-level clinical summaries based
+on detailed observations, mirroring the natural cognitive process employed by radiologists.
+Comparative Analysis: Findings vs. Impressions in Stage 3.Within the Stage 3 framework, im-
+pressions generation consistently outperforms findings generation across all metrics. Specifically,
+impressions achieve 18.91, 18.09, 9.69, and 9.64 percentage points higher scores than findings for
+ROUGE-1, BLEU, Precision, and Recall respectively. This performance gap can be attributed to the
+inherent complexity differences between the two tasks: findings require detailed, anatomically pre-
+cise descriptions of multiple body regions and potential abnormalities, whereas impressions involve
+higher-level summarization and clinical reasoning based on previously established observations.
+The simpler linguistic structure and reduced lexical diversity of impressions make them inherently
+easier to generate accurately.
+Natural Language Generation vs. Clinical Classification Metrics.Examining the relationship be-
+tween NLG metrics (ROUGE, BLEU) and clinical classification metrics (Precision, Recall) reveals in-
+teresting patterns. For findings generation in Stage 3, the metrics are closely aligned (71.21% ROUGE-
+1 vs. 71.53% Precision vs. 71.25% Recall), indicating that linguistic quality correlates well with clinical
+accuracy at this performance level. However, for impressions generation, we observe a notable dis-
+crepancy: while ROUGE-1 and BLEU exceed 89%, Precision and Recall remain around 81%. This gap
+suggests that although the generated impressions are linguistically fluent and structurally similar to
+reference texts, they may occasionally omit or add clinical facts, resulting in reduced factual preci-
+sion and completeness. This finding underscores the importance of employing both linguistic and
+clinical evaluation metrics to comprehensively assess medical report generation systems.
+6.2.4 Doctor Benchmark Evaluation
+Since the Doctor Benchmark requires extensive clinical evaluation by licensed radiologists, we apply
+this metric exclusively to our best-performing model from Stage 3 – Multi-turn Generation. A total
+of 2,000 generated sentences were evaluated for each report section (findings and impressions), with
+each sentence scored on a 5-point scale (1–5) based on diagnostic accuracy and information com-
+pleteness. Table 23 presents the aggregate results and score distributions.
+Model Section Avg Score Level 1 2 3 4 5
+Qwen2-VL-7BFindings 3.98 / 5.00 (74.5%) High 109 139 54 1073 625
+Impressions 4.46 / 5.00 (86.5%) Very High 90 149 60 147 1554
+Overall 4.22 / 5.00 (80.5%) High 199 288 114 1220 2179
+Table 23: Doctor Benchmark evaluation on Stage 3 Qwen2-VL-7B model. Total sentences evaluated:
+4,000 (2,000 per section).
+Findings Generation: Clinical Assessment.The findings section achieves an average score of 3.98
+out of 5.00 (74.5%) across 2,000 evaluated sentences. The score distribution reveals that 84.9% of
+53
+generated findings fall into acceptable categories (scores 4–5): 53.7% are nearly correct with minor
+non-critical issues (score 4, N=1,073), and 31.3% are medically correct (score 5, N=625). Conversely,
+12.4% of sentences receive failing scores (1–2): 5.5% are completely incorrect (score 1, N=109) and
+7.0% are mostly incorrect (score 2, N=139). Only 2.7% are partially correct (score 3, N=54).
+This distribution indicates that while the model reliably produces clinically useful findings in the ma-
+jority of cases, approximately one in eight sentences contains significant errors that would require
+radiologist correction. The concentration of scores at level 4 suggests the model excels at capturing
+core clinical observations but may struggle with precise anatomical terminology or subtle diagnostic
+nuances. The Doctor Benchmark score of 74.5% demonstrates reasonable alignment with the auto-
+mated Precision metric (71.53%), with the small 3-percentage-point gap likely attributable to radi-
+ologists’ ability to recognize semantically equivalent phrasings that automated metrics would count
+as mismatches.Impressions Generation: Clinical Assessment.The impressions section achieves
+a substantially higher average score of 4.46 out of 5.00 (86.5%) across 2,000 evaluated sentences,
+demonstrating excellent clinical utility. The score distribution is heavily skewed toward high-quality
+outputs: 77.7% of sentences are medically correct (score 5, N=1,554), and 7.4% are nearly correct
+(score 4, N=147), yielding a combined 85.1% acceptable rate. Error rates remain relatively low: 4.5%
+are completely incorrect (score 1, N=90), 7.5% are mostly incorrect (score 2, N=149), and 3.0% are
+partially correct (score 3, N=60), totaling 15.0% problematic outputs.
+The dramatic concentration at score 5 (77.7% of all impressions) contrasts sharply with findings
+(31.3% at score 5), indicating that the model produces substantially more clinically sound impres-
+sions than findings. This 0.48-point advantage in average score (12.0 percentage points) aligns with
+automated metric patterns, where impressions achieved 90.12% ROUGE-1 versus 71.21% for find-
+ings. The high doctor evaluation score validates that the multi-turn framework enables the model to
+synthesize clinically appropriate diagnostic summaries from previously generated findings, closely
+mirroring radiologists’ reasoning processes.Correlation with Automated Metrics.The Doctor Bench-
+mark results exhibit meaningful correlations with automated evaluation metrics, while also revealing
+important divergences. For findings, the 74.5% doctor score lies approximately 3 percentage points
+above the 71.53% Precision metric, suggesting that radiologists grant credit for semantically equiv-
+alent expressions (e.g., “no cardiomegaly” vs. “heart size normal”) that strict atomic fact matching
+would penalize. However, the doctor score remains well below the 71.21% ROUGE-1 score, indicat-
+ing that surface-level lexical overlap does not guarantee clinical correctness.
+For impressions, the 86.5% doctor score falls between the 81.22% Precision and 90.12% ROUGE-1,
+demonstrating that high lexical similarity (ROUGE) moderately overstates clinical accuracy, while
+strict fact-matching (Precision) slightly understates it. The convergence of these three metrics within
+a 9-percentage-point range validates that automated metrics serve as reasonable proxies for clinical
+quality, though human evaluation remains essential for capturing nuanced semantic equivalences
+and clinical reasoning that automated systems cannot fully assess. The 12.0-percentage-point gap
+between findings and impressions doctor scores (74.5% vs. 86.5%) closely mirrors automated metric
+trends, confirming that the relative difficulty between these tasks is consistently detected by both
+human and automated evaluation approaches.
+6.2.5 Generation Example
+Multi-turn Generation - ExampleFor Stage 3 – multi-turn generation, we illustrate the output of
+the Qwen2-VL-7B model in Table 25. The example demonstrates that multi-turn fine-tuning enables
+the model to better understand the diagnostic nature of impressions, resulting in generated outputs
+that are more aligned with the ground truth. This performance surpasses that of models trained
+54
+solely on impressions in Stage 2 (see 6.1.6 for comparison).
+Ground-Truth Inference Precision Recall Doctor
+Findings:"BÓNG TIM KHÔNG
+TO, HÌNH VAN TIM NHÂN TẠO,
+VẾT KHÂU XƯƠNG ỨC. CHƯA
+GHI NHẬN HÌNH ẢNH BẤT
+THƯỜNG ĐẬM ĐỘ TRƯỜNG
+PHỔI HAI BÊN."
+("Heart is not enlarged, prosthetic
+heart valve, sternotomy suture. No
+abnormal parenchymal opacities in
+both lung fields.")"BÓNG TIM KHÔNG TO, HÌNH
+VAN TIM NHÂN TẠO, VẾT
+KHÂU XƯƠNG ỨC. CHƯA
+GHI NHẬN HÌNH ẢNH BẤT
+THƯỜNG ĐẬM ĐỘ TRƯỜNG
+PHỔI HAI BÊN."
+("Heart is not enlarged, prosthetic
+heart valve," sternotomy suture.
+"No abnormal parenchymal opaci-
+ties in both lung fields.")77.78% 87.86% 4/5 (80%)
+Impressions:"BÓNG TIM
+KHÔNG TO, HÌNH VAN TIM
+NHÂN TẠO, VẾT KHÂU XƯƠNG
+ỨC. CHƯA GHI NHẬN HÌNH
+ẢNH BẤT THƯỜNG ĐẬM ĐỘ
+TRƯỜNG PHỔI HAI BÊN."
+("Heart is not enlarged, prosthetic
+heart valve, sternotomy suture. No
+abnormal parenchymal opacities in
+both lung fields.")"BÓNG TIM KHÔNG TO, HÌNH
+VAN TIM NHÂN TẠO, VẾT
+KHÂU XƯƠNG ỨC. CHƯA
+GHI NHẬN HÌNH ẢNH BẤT
+THƯỜNG ĐẬM ĐỘ TRƯỜNG
+PHỔI HAI BÊN."
+("Heart is not enlarged, prosthetic
+heart valve, sternotomy suture. No
+abnormal parenchymal opacities in
+both lung fields.")100% 100% 5/5 (100%)
+Table 24: Illustrative example of the Qwen2-VL-7B model output at Stage 3 – multi-turn generation.
+We provide the corresponding Precision, Recall, and Doctor Benchmark scores for this example. In
+the visualization, blue highlights denote correctly generated content, and orange shows content that
+was missed by the model (present in ground-truth but absent in inference).
+55
+Ground-Truth Inference Precision Recall Doctor
+Findings:"BÓNG TIM KHÔNG
+TO QUAI ĐỘNG MẠCH
+CHỦ VÔI HÓA HÌNH NỐT
+MỜ NGOẠI VI ĐÁY PHỔI
+TRÁI/CHỒNG HÌNH NÚM
+VÚ"
+("Heart shadow is not enlarged."
+"Aortic arch calcification. Faint
+nodular opacity at the left lung
+base/nipple shadow superimposi-
+tion.")"BÓNG TIM KHÔNG TO- CUNG
+ĐỘNG MẠCH CHỦ VỒNG, VÔI
+HÓA"
+("Heart shadow is not enlarged"".
+Aortic arch is prominent and calci-
+fied.")
+50% 33% 4/5 (80%)
+Impressions:"BÓNG TIM
+KHÔNG TO QUAI ĐỘNG
+MẠCH CHỦ VÔI HÓA HÌNH
+NỐT MỜ NGOẠI VI ĐÁY PHỔI
+TRÁI/CHỒNG HÌNH NÚM VÚ"
+("Heart shadow is not enlarged.
+Aortic arch calcification. Faint
+nodular opacity at the left lung
+base/nipple shadow superimposi-
+tion.")"BÓNG TIM KHÔNG TO QUAI
+ĐỘNG MẠCH CHỦ VÔI HÓA
+HÌNH NỐT MỜ NGOẠI VI ĐÁY
+PHỔI TRÁI/CHỒNG HÌNH
+NÚM VÚ"
+("Heart shadow is not enlarged.
+Aortic arch calcification. Faint
+nodular opacity at the left lung
+base/nipple shadow superimposi-
+tion.")100% 100% 5/5 (100%)
+Findings:"BÓNG TIM KHÔNG
+TO, CUNG ĐỘNG MẠCH CHỦ
+VỒNG, VÔI HÓA- XƠ DÀY MÔ
+KẼ NỀN PHỔI HAI BÊN"
+("Heart shadow is not enlarged,
+aortic arch is prominent and calci-
+fied. Bilateral interstitial thicken-
+ing and fibrosis.")"BÓNG TIM KHÔNG TO, CUNG
+ĐỘNG MẠCH CHỦ VỒNG, VÔI
+HÓA- XƠ DÀY MÔ KẼ NỀN
+PHỔI HAI BÊN"
+("Heart shadow is not enlarged,
+aortic arch is prominent and calci-
+fied. Bilateral interstitial thicken-
+ing and fibrosis.") 100% 100% 5/5 (100%)
+Impressions:"MÁY TẠO NHỊP
+TIM NGỰC TRÁI"
+("Cardiac pacemaker in the left
+chest.")"MÁY TẠO NHỊP TIM NGỰC
+TRÁI"
+("Cardiac pacemaker in the left
+chest.")100% 100% 5/5 (100%)
+Findings:"BÓNG TIM KHÔNG
+TO- CHƯA THẤY BẤT THƯỜNG
+NHU MÔ HAI PHỔI"
+("Heart shadow is not enlarged. No
+abnormality detected in bilateral
+lung parenchyma.")"BÓNG TIM KHÔNG TO- CHƯA
+THẤY BẤT THƯỜNG NHU MÔ
+HAI PHỔI"
+("Heart shadow is not enlarged. No
+abnormality detected in bilateral
+lung parenchyma.")
+100% 100% 5/5 (100%)Impressions:"CÒN PHƯƠNG
+TIỆN KẾT HỢP XƯƠNG ĐÒN
+(T)"
+("Residual clavicle fixation device
+(right).")"CÒN PHƯƠNG TIỆN KẾT HỢP
+XƯƠNG ĐÒN (T)"
+("Residual clavicle fixation device
+(right).")100% 100% 5/5 (100%)
+Table 25: Illustrative example of the Qwen2-VL-7B model output at Stage 3 – multi-turn generation.
+We provide the corresponding Precision, Recall, and Doctor Benchmark scores for this example. In
+the visualization, blue highlights denote correctly generated content, red indicates incorrect infor-
+mation and orange shows content that was missed by the model (present in ground-truth but absent
+in inference).56
+One interesting pattern observed in our model’s performance involves the assessment of heart size
+in patients with prosthetic heart valves. The analysis reveals nuanced challenges in distinguishing
+between normal and enlarged cardiac silhouettes when mechanical valves are present.
+6.2.6 Case Analysis
+Table 26 presents examples illustrating the model’s behavior in these scenarios. multirow
+57
+Image Ground-Truth Inference
+Findings:
+BÓNG TIM KHÔNG TO
+"Normal heart size"Findings:
+BÓNG TIM KHÔNG TO
+"Normal heart size"
+Impressions:
+CHƯA GHI NHẬN HÌNH ẢNH
+BẤT THƯỜNG ĐẬM ĐỘ NHU
+MÔ HAI PHỔI.
+"No abnormal lung parenchymal
+opacities detected"Impressions:
+CHƯA GHI NHẬN HÌNH ẢNH
+BẤT THƯỜNG ĐẬM ĐỘ NHU
+MÔ HAI PHỔI.
+"No abnormal lung parenchymal
+opacities detected"
+Findings:
+BÓNG TIM KHÔNG TO, HÌNH
+VAN TIM NHÂN TẠO, VẾT
+KHÂU XƯƠNG ỨC. CHƯA GHI
+NHẬN BẤT THƯỜNG ĐẬM ĐỘ
+TRƯỜNG PHỔI.
+"Normal heart size, prosthetic
+valve, sternotomy wires, no abnor-
+mal lung fields"Findings:
+BÓNG TIM KHÔNG TO, HÌNH
+VAN TIM NHÂN TẠO, VẾT
+KHÂU XƯƠNG ỨC. CHƯA GHI
+NHẬN BẤT THƯỜNG ĐẬM ĐỘ
+TRƯỜNG PHỔI.
+"Normal heart size, prosthetic
+valve, sternotomy wires, no abnor-
+mal lung fields"
+Impressions:
+BÓNG TIM KHÔNG TO, HÌNH
+VAN TIM NHÂN TẠO, VẾT
+KHÂU XƯƠNG ỨC. CHƯA GHI
+NHẬN BẤT THƯỜNG TRƯỜNG
+PHỔI
+"Normal heart size with prosthetic
+valve and sternotomy wires; no
+abnormal lung findings"Impressions:
+BÓNG TIM KHÔNG TO, HÌNH
+VAN TIM NHÂN TẠO, VẾT
+KHÂU XƯƠNG ỨC. CHƯA GHI
+NHẬN BẤT THƯỜNG TRƯỜNG
+PHỔI
+"Normal heart size with prosthetic
+valve and sternotomy wires; no
+abnormal lung findings"
+Findings:
+BÓNG TIM TO, HÌNH VAN TIM
+NHÂN TẠO, VẾT KHÂU XƯƠNG
+ỨC. CHƯA GHI NHẬN BẤT
+THƯỜNG TRƯỜNG PHỔI.
+"Enlarged cardiac silhouette, pros-
+thetic valve, sternotomy wires, no
+abnormal lung fields"Findings:
+BÓNG TIM TO, HÌNH VAN TIM
+NHÂN TẠO, VẾT KHÂU XƯƠNG
+ỨC. CHƯA GHI NHẬN BẤT
+THƯỜNG TRƯỜNG PHỔI.
+"Enlarged cardiac silhouette, pros-
+thetic valve, sternotomy wires, no
+abnormal lung fields"
+Impressions:
+BÓNG TIM TO, HÌNH VAN TIM
+NHÂN TẠO, VẾT KHÂU XƯƠNG
+ỨC. CHƯA GHI NHẬN BẤT
+THƯỜNG TRƯỜNG PHỔI
+"Cardiomegaly with prosthetic
+valve and sternotomy wires; no
+abnormal lung findings"Impressions:
+BÓNG TIM TO, HÌNH VAN TIM
+NHÂN TẠO, VẾT KHÂU XƯƠNG
+ỨC. CHƯA GHI NHẬN BẤT
+THƯỜNG TRƯỜNG PHỔI
+"Cardiomegaly with prosthetic
+valve and sternotomy wires; no
+abnormal lung findings"
+Table 26: Model performance on heart size assessment with prosthetic heart valves (with X-ray im-
+ages)
+58
+In radiology practice, heart size assessment is typically classified as either "not enlarged" (normal
+cardiac silhouette) or "enlarged" (cardiomegaly). For patients without cardiac interventions, a non-
+enlarged heart shadow generally indicates normal cardiac dimensions. However, the presence of
+prosthetic heart valves introduces important clinical nuances:
+Normal-sized heart with prosthetic valve :This represents a successful post-surgical outcome where
+cardiac dimensions have returned to or remained within normal limits despite the mechanical valve
+replacement. The model initially missed the prosthetic valve details in Turn 1, identifying only the
+heart size and lung fields. After multi-turn refinement, the complete assessment including the valve
+and sternotomy wires was correctly generated.
+Enlarged heart with prosthetic valve:This scenario indicates cardiomegaly persisting after valve
+replacement, which may suggest:
+• Pre-existing cardiac enlargement that has not resolved post-operatively
+• Progressive cardiac remodeling despite intervention
+• Potential valve dysfunction or other cardiac pathology requiring follow-up
+The distinction between these two scenarios is clinically significant. An enlarged heart in the con-
+text of a prosthetic valve may warrant further investigation, whereas a normal-sized heart generally
+indicates favorable post-surgical cardiac adaptation.
+The model demonstrated progressive improvement through multi-turn dialogue:
+•Turn 1 limitations:Initial generations sometimes omitted prosthetic valve findings or pro-
+vided incomplete descriptions.
+•Turn 2 refinement:After conversational feedback, the model successfully incorporated miss-
+ing details, achieving complete and accurate reports.
+•Heart size accuracy:The model correctly distinguished between normal and enlarged cardiac
+silhouettes in all cases, suggesting robust cardiac size assessment capabilities.
+This pattern demonstrates the effectiveness of our three-stage training approach, particularly Stage
+3’s multi-turn conversational capability, which allows iterative refinement toward comprehensive ra-
+diology reports.
+59
+7 Model Deployment and Inference Optimization
+The deployment phase constitutes a critical transition from model development to production-ready
+systems capable of serving real-time clinical inference requests. We investigate three distinct deploy-
+ment architectures, each offering different trade-offs between inference latency, memory efficiency,
+and implementation complexity. This comprehensive evaluation provides empirical insights into op-
+timal deployment strategies for large-scale vision-language models in clinical environments where
+both response time and resource utilization are paramount considerations.
+7.1 Deployment Architecture Overview
+Our deployment infrastructure implements a microservices-based architecture that decouples the
+presentation layer, application logic, and inference engine, enabling independent scaling and opti-
+mization of each component. The system architecture comprises three primary layers: (1) Gradio
+frontend interface for clinician interaction and result visualization, (2) a FastAPI-powered backend
+service managing request routing, preprocessing, and response formatting, and (3) specialized infer-
+ence servers executing model predictions with optimized resource utilization.
+7.2 API Layer Design
+7.2.1 FastAPI Implementation
+We implement the API layer using FastAPI [12], a modern Python web framework optimized for build-
+ing high-performance APIs with automatic OpenAPI documentation generation and native support
+for asynchronous request handling. FastAPI’s Pydantic-based data validation ensures type safety and
+automatic serialization/deserialization of complex medical data structures, including DICOM meta-
+data, patient demographics, and multi-modal report components.
+7.3 Frontend Interface
+7.3.1 Gradio Integration
+Gradio is a Python library that allows developers to create user interfaces for machine learning mod-
+els with minimal effort. We chose Gradio for system because it provides an intuitive and user-friendly
+way to interact with the system. Its ability to support various input and output types, such as images,
+text, makes it highly versatile for showcasing the capabilities of system. Additionally, Gradio’s web-
+based interface allows users to interact with the model directly through a browser without requiring
+any additional software installation. This ensures accessibility and ease of use, making it an ideal
+choice for real-time demonstrations and user testing.
+7.4 Backend Inference Strategies
+We evaluate three distinct model serving approaches, each leveraging different optimization tech-
+niques and runtime environments. The comparative analysis encompasses inference latency, mem-
+ory footprint, throughput capacity, and ease of deployment—critical factors for production medical
+AI systems.
+7.4.1 Native PyTorch Inference with Hugging Face Transformers
+The baseline deployment approach utilizes standard PyTorch inference with models loaded directly
+from the Hugging Face Model Hub. This implementation represents the most straightforward deploy-
+60
+ment strategy, requiring minimal infrastructure complexity and leveraging the extensive ecosystem
+of pre-trained models and tokenizers available through Hugging Face Transformers [13].
+Implementation Details:Models are instantiated using theAutoModelForVision2Seqclass with
+automatic device mapping to available GPU resources. Image preprocessing follows the standard
+pipeline defined by the model’s associated processor, ensuring consistency between training and in-
+ference data transformations. Text generation employs greedy decoding with configurable tempera-
+ture and top-k sampling parameters, allowing clinicians to adjust output diversity based on clinical
+preferences.
+Performance Characteristics:As shown in Table 27, native PyTorch inference achieves an average
+latency of 22.360 seconds per report with a memory footprint of 28.1 GB VRAM. While this approach
+offers maximum flexibility and ease of debugging, the substantial inference time and memory con-
+sumption render it suboptimal for real-time clinical applications where sub-second response times
+are increasingly expected.
+7.4.2 vLLM-Accelerated Serving
+To address the performance limitations of native PyTorch inference, we deploy our model using
+vLLM [14], a high-throughput serving framework specifically designed for large language models and
+vision-language models. vLLM introduces several architectural innovations that dramatically im-
+prove inference efficiency while maintaining output quality identical to standard implementations.
+Performance Analysis:vLLM achieves remarkable performance improvements over baseline Py-
+Torch inference, reducing average latency to 0.896 seconds (a 24.9× speedup) while decreasing mem-
+ory consumption to 24.5 GB VRAM (12.8% reduction). This performance profile positions vLLM as
+an excellent choice for production deployments requiring rapid response times without extensive
+infrastructure modifications.
+The latency reduction stems primarily from PagedAttention’s efficient memory management and
+continuous batching’s improved GPU utilization. For single-request scenarios common in interac-
+tive clinical workflows, the optimized CUDA kernels provide the majority of speedup by reducing
+per-token generation time. The memory savings, while modest compared to more aggressive opti-
+mization techniques, result from elimination of memory fragmentation and more efficient key-value
+cache management.
+Deployment Considerations:vLLM deployment is achieved through a simple command-line in-
+terface:vllm serve <model_name> –host 0.0.0.0 –port 8000, automatically configuring opti-
+mal serving parameters based on detected hardware. The framework exposes an OpenAI-compatible
+API, facilitating seamless integration with existing applications designed for GPT-based models.
+61
+7.4.3 NVIDIA Triton Inference Server with Python Backend
+Figure 25: NVIDIA Triton Inference Server architecture illustrating multi-model serving capabilities,
+dynamic batching, model versioning, and Python backend integration for flexible preprocessing and
+postprocessing pipelines
+For enterprise-grade deployments requiring maximum flexibility, multi-model serving, and advanced
+traffic management capabilities, we implement NVIDIA Triton Inference Server as our primary serv-
+ing infrastructure. Triton represents a production-ready inference platform supporting multiple deep
+learning frameworks, dynamic batching, model ensembles, and comprehensive monitoring capabil-
+ities.
+Architecture and Design Philosophy:Triton employs a plugin-based architecture where different
+"backends" handle inference execution for specific frameworks or custom logic. We utilize the Python
+backend, enabling integration of our complete preprocessing pipeline, model inference, and post-
+processing steps within a unified serving framework. This approach eliminates the need for separate
+preprocessing services and reduces network overhead associated with multi-service architectures.
+Python Backend Implementation:The Python backend encapsulates our complete inference pipeline
+within a Triton-compatible interface. The backend implementation handles:
+• Image decoding and preprocessing (normalization, resizing)
+• Model initialization and weight loading with optimal memory layout
+• Efficient batch inference execution with attention mask generation
+• Postprocessing and output formatting
+• Error handling and graceful degradation for malformed inputs
+Performance Excellence:Triton achieves the best performance among all evaluated serving strate-
+gies, delivering an average inference latency of 0.736 seconds per report while consuming only 17.43
+GB VRAM. This represents a 30.4× speedup over native PyTorch inference and an 18% improvement
+over vLLM, coupled with a remarkable 38% reduction in memory footprint compared to the baseline.
+62
+The substantial memory reduction enables deployment on less expensive GPU hardware or allows
+co-location of multiple models on the same device, improving cost-efficiency for multi-task clinical
+AI systems.
+Deployment Configuration:Triton deployment requires a structured model repository with config-
+uration files specifying input/output tensors, batching parameters, and instance groups:
+model_repository/
+vlm/
+config.pbtxt
+1/
+model.py
+model_weights/
+Theconfig.pbtxtfile declaratively specifies serving parameters, enabling infrastructure teams to
+adjust deployment characteristics without code modifications.
+7.5 Containerization and Orchestration
+To ensure deployment consistency across diverse infrastructure environments and facilitate scalable
+production deployments, we containerize all components using Docker with multi-stage builds opti-
+mizing image sizes. Base images are built on NVIDIA CUDA containers, ensuring compatibility with
+GPU acceleration across different deployment targets.
+Health checks and readiness probes ensure traffic is only routed to fully-initialized containers with
+loaded models, preventing request failures during deployment transitions.
+7.6 Comparative Performance Analysis
+Table 27 presents a comprehensive comparison of the three evaluated serving strategies across key
+performance metrics relevant to clinical deployment scenarios.
+Serving Strategy Latency (s) VRAM (GB) Speedup Memory Efficiency
+Native PyTorch (Baseline) 22.360 28.1 1.0× 1.0×
+vLLM Serving 0.896 24.5 24.9× 1.15×
+Triton Inference Server 0.736 17.43 30.4× 1.61×
+Table 27: Comprehensive performance comparison of model serving strategies evaluated on identi-
+cal hardware (NVIDIA 5090 32GB) with the same input dataset, showing inference latency, memory
+consumption, and relative performance improvements
+Key Findings and Recommendations:
+1.Triton for Production Excellence: NVIDIA Triton Inference Server emerges as the optimal
+choice for production deployments, offering the best combination of inference speed (0.736s),
+memory efficiency (17.43 GB VRAM), and enterprise-grade features. The 30.4× speedup over
+baseline PyTorch enables real-time interactive clinical workflows, while the 38% memory re-
+duction allows deployment on more cost-effective hardware or co-location of multiple models.
+2.vLLM for Rapid Deployment: vLLM provides an excellent middle ground for teams requiring
+quick deployment without extensive infrastructure expertise. The 24.9× speedup with mini-
+mal configuration overhead makes it ideal for proof-of-concept deployments, research envi-
+63
+ronments, and scenarios where development velocity is prioritized over absolute performance
+optimization.
+3.Native PyTorch for Development: While unsuitable for production serving, native PyTorch in-
+ference remains valuable during model development, debugging, and experimentation where
+code transparency and ease of modification outweigh performance considerations.
+4.Clinical Workflow Integration: The sub-second inference latencies achieved by both vLLM
+and Triton enable seamless integration into interactive radiologist workflows, where generated
+reports can appear nearly instantaneously as images are uploaded. This responsiveness is crit-
+ical for clinical acceptance and may influence reporting efficiency in busy radiology depart-
+ments.
+5.Cost-Efficiency Implications: Triton’s 38% memory reduction compared to baseline PyTorch
+inference translates directly to cost savings in cloud deployments where GPU memory is a pri-
+mary cost driver. The ability to serve the same model on less expensive GPU SKUs or increase
+instance density on existing hardware provides substantial economic benefits at scale.
+Scalability Considerations:Both vLLM and Triton support horizontal scaling across multiple GPU
+nodes, though with different architectural approaches. vLLM’s distributed inference capabilities en-
+able tensor parallelism for extremely large models exceeding single-GPU capacity, while Triton’s ar-
+chitecture focuses on request-level parallelism across model instances. For our current model size,
+Triton’s approach offers superior scalability for high-concurrency clinical environments.
+Future Optimization Directions:Potential avenues for further performance enhancement include:
+(1) quantization to INT8 or FP8 precision with minimal accuracy loss, (2) knowledge distillation to
+smaller, faster models maintaining clinical accuracy, (3) speculative decoding for reduced autoregres-
+sive generation latency, and (4) custom CUDA kernels optimized for medical imaging preprocessing
+operations.
+64
+8 Demo
+8.1 Gradio User Interface
+The Gradio demo for the Clara system provides an intuitive interface for interacting with the multi-
+turn chest X-ray analysis pipeline. Users begin by uploading a frontal-view chest radiograph, ac-
+companied by basic metadata such as patient gender and age. Several predefined test cases are also
+available to streamline evaluation.
+After the inputs are provided, the system automatically constructs the corresponding prompts and
+forwards them to the backend inference engine. The interface then displays the generated findings,
+clinical impressions, and latency metrics. Figure 26 shows the overall layout of the interface and
+illustrates the user interaction workflow.
+Figure 26: Screenshot of the Gradio interface illustrating the Clara multi-turn VLM inference work-
+flow.
+8.2 Backend Pipeline Workflow
+Figure 27 illustrates the end-to-end pipeline of the Clara system (Clinical Language Analytics and
+Reasoning AI), which processes chest X-ray images through multiple stages to generate structured
+medical reports in Vietnamese.
+65
+Figure 27: Clara - Medical AI Pipeline Architecture for chest X-ray analysis with multi-turn VLM in-
+ference
+The backend pipeline of the Clara system is designed to process chest X-ray inputs efficiently and
+prepare them for multi-stage VLM inference. The workflow proceeds as follows:
+•Image Preprocessing: Upon receiving an uploaded chest radiograph, the system converts the
+byte stream into a processable format and standardizes the resolution to 448×448 pixels. Pa-
+tient metadata is validated and injected into predefined prompt templates.
+•Turn 1 – Findings Generation: The processed image and structured prompt are forwarded to
+the vLLM inference server hosting Qwen2-VL-7B. In this stage, the model focuses on visual
+feature extraction and produces a detailed list of radiological findings describing anatomical
+structures and abnormalities.
+•Turn 2 – Impressions Generation: The findings from Turn 1 are incorporated as contextual
+input. A follow-up prompt is issued to elicit diagnostic reasoning, and the model synthesizes
+the findings into high-level clinical impressions.
+•Response Assembly: Outputs from both inference turns are consolidated into a unified JSON
+structure. Latency statistics, token counts, and preprocessing metadata are appended before
+returning the final response to the client.
+•Result Display: The Gradio frontend renders the findings and impressions, along with pro-
+cessing times and prompt details, enabling clinicians to review and assess the generated report
+quickly.
+66
+9 Conclusion
+9.1 Summary of Findings
+This project developed and evaluated a Vietnamese Vision–Language AI system for automatic chest
+X-ray captioning, focusing on generating clinically meaningfulFindingsandImpressionsto support
+radiologists in high-workload environments. Through a two-stage training pipeline, six state-of-the-
+art Vision–Language Models (VLMs) were first fine-tuned and compared on a smaller Vietnamese
+medical dataset, after which Qwen2-VL-7B [3] emerged as the most suitable backbone across all three
+stages: Findings generation, Impressions generation, and multi-turn interaction.
+Qwen2-VL-7B [3] was subsequently fine-tuned on a larger dataset of approximately 137k chest X-ray–
+report pairs from Military Hospital 175, enabling the model to better capture Vietnamese anatomical,
+pathological, and linguistic characteristics. The final system achieved an average inference latency
+of about 0.736 seconds per request, indicating that the model can operate at near real-time speeds
+compatible with clinical workflows. In addition to automatic metrics, the best-performing model was
+further assessed through a doctor benchmark, in which radiologists at Military Hospital 175 qualita-
+tively evaluated the clinical usefulness and readability of the generated reports.
+9.2 Contributions and Reflections on the Project
+The project makes several technical and practical contributions to medical AI in Vietnam. Techni-
+cally, it establishes a full pipeline for selecting and fine-tuning Vision–Language Models on domain-
+specific Vietnamese chest X-ray data, including a multi-stage training strategy for separate Findings
+and Impressions as well as multi-turn vision–language interaction. This pipeline, applied to six com-
+petitive VLMs and culminating in a Qwen2-VL-7B [3]–based system, demonstrates that large-scale
+Vietnamese medical captioning is feasible with near real-time inference.
+From a data and ecosystem perspective, the project leverages a 137k-pair dataset provided by Mil-
+itary Hospital 175, ensuring that the model is trained on anatomically and linguistically relevant
+Vietnamese clinical data rather than relying solely on Western-centric datasets. Clinically, the sys-
+tem is designed as an assistive tool: it can draft detailed Vietnamese Findings and Impressions that
+help radiologists reduce workload, improve reporting consistency, and accelerate turnaround time
+in settings with radiologist shortages. The collaboration with hospital stakeholders and the doctor
+benchmark also provided valuable experience in aligning AI system design with real-world clinical
+constraints, balancing model performance, latency, and usability.
+9.3 Limitations and Future Work
+Despite these achievements, the current system has several limitations, primarily related to data dis-
+tribution and external validity. Although the dataset contains around 137k samples, the label distri-
+bution is imbalanced: most reports focus on common cardiac and pulmonary conditions, while rare
+or complex multi-pathology cases are underrepresented. As a result, the model may perform less
+reliably on unusual findings or X-rays that exhibit multiple concurrent abnormalities. Furthermore,
+all data originate from a single institution (Military Hospital 175), so model generalization to other
+hospitals, imaging devices, and regional populations remains to be systematically evaluated.
+Another limitation is that the system mainly operates at the caption level and does not yet inte-
+grate explicit visual localization, such as lesion detection or segmentation, which could provide more
+transparent, visually grounded explanations for radiologists. In future work, the project aims to (i) ex-
+67
+pand and diversify the dataset across multiple centers and pathology distributions, and (ii) integrate
+detection or segmentation modules to highlight suspicious regions directly on the X-ray, thereby
+combining structured visual cues with generated text. Longer-term directions include extending the
+framework to other imaging modalities (e.g., CT, MRI, ultrasound), conducting broader clinical val-
+idation studies with multiple hospitals, and exploring improved explainability methods for Vision–
+Language Models in medical settings.
+68
+References
+[1] K. T. Doan, B. G. Huynh, D. T. Hoang, T. D. Pham, N. H. Pham, Q. T. Nguyen, B. Q. Vo, S. N. Hoang,
+Vintern-1b: An efficient multimodal large language model for vietnamese, ArXiv abs/2408.12480
+(2024). URL:https://api.semanticscholar.org/CorpusID:271924217.
+[2] Z. Chen, W. Wang, Y. Cao, Y. Liu, Z. Gao, E. Cui, J. Zhu, S. Ye, H. Tian, Z. Liu, et al., Expanding
+performance boundaries of open-source multimodal models with model, data, and test-time
+scaling, arXiv preprint arXiv:2412.05271 (2024).
+[3] S. Bai, K. Chen, X. Liu, J. Wang, W. Ge, S. Song, K. Dang, P . Wang, S. Wang, J. Tang, et al., Qwen2.
+5-vl technical report, arXiv preprint arXiv:2502.13923 (2025).
+[4] C. Tran, H. L. Thanh, Lavy: Vietnamese multimodal large language model (2024).
+[5] Y. Yao, T. Yu, A. Zhang, C. Wang, J. Cui, H. Zhu, T. Cai, H. Li, W. Zhao, Z. He, et al., Minicpm-v: A
+gpt-4v level mllm on your phone, arXiv preprint arXiv:2408.01800 (2024).
+[6] Z. Chen, W. Wang, H. Tian, S. Ye, Z. Gao, E. Cui, W. Tong, K. Hu, J. Luo, Z. Ma, et al., How far
+are we to gpt-4v? closing the gap to commercial multimodal models with open-source suites,
+Science China Information Sciences 67 (2024) 220101.
+[7] P . Qi, Y. Zhang, Y. Zhang, J. Bolton, C. D. Manning, Stanza: A python natural language processing
+toolkit for many human languages, in: Proceedings of the 58th Annual Meeting of the Asso-
+ciation for Computational Linguistics: System Demonstrations, Association for Computational
+Linguistics, 2020.
+[8] J. Rasley, S. Rajbhandari, O. Ruwase, Y. He, Deepspeed: System optimizations enable training
+deep learning models with over 100 billion parameters, Proceedings of the 26th ACM SIGKDD
+International Conference on Knowledge Discovery & Data Mining (2020). URL:https://api.
+semanticscholar.org/CorpusID:221191193.
+69
+[9] J. E. Hu, Y. Shen, P . Wallis, Z. Allen-Zhu, Y. Li, S. Wang, W. Chen, Lora: Low-rank adaptation of
+large language models, ArXiv abs/2106.09685 (2021). URL:https://api.semanticscholar.
+org/CorpusID:235458009.
+[10] K. Papineni, S. Roukos, T. Ward, W.-J. Zhu, Bleu: a method for automatic evaluation of ma-
+chine translation, in: P . Isabelle, E. Charniak, D. Lin (Eds.), Proceedings of the 40th Annual
+Meeting of the Association for Computational Linguistics, Association for Computational Lin-
+guistics, Philadelphia, Pennsylvania, USA, 2002, pp. 311–318. URL:https://aclanthology.
+org/P02-1040/. doi:10.3115/1073083.1073135.
+[11] C.-Y. Lin, ROUGE: A package for automatic evaluation of summaries, in: Text Summarization
+Branches Out, Association for Computational Linguistics, Barcelona, Spain, 2004, pp. 74–81.
+URL:https://aclanthology.org/W04-1013/.
+[12] S. Ramírez, Fastapi,https://github.com/tiangolo/fastapi, 2018. Accessed: 2025-11-26.
+[13] T. Wolf, L. Debut, V . Sanh, J. Chaumond, C. Delangue, A. Moi, P . Cistac, T. Rault, R. Louf, M. Fun-
+towicz, J. Davison, S. Shleifer, P . von Platen, C. Ma, Y. Jernite, J. Plu, C. Xu, T. L. Scao, S. Gug-
+ger, M. Drame, Q. Lhoest, A. M. Rush, Transformers: State-of-the-art natural language pro-
+cessing, in: Conference on Empirical Methods in Natural Language Processing, 2020. URL:
+https://api.semanticscholar.org/CorpusID:283227281.
+[14] W. Kwon, Z. Li, S. Zhuang, Y. Sheng, L. Zheng, C. H. Yu, J. E. Gonzalez, H. Zhang, I. Stoica,
+Efficient memory management for large language model serving with pagedattention, Pro-
+ceedings of the 29th Symposium on Operating Systems Principles (2023). URL:https://api.
+semanticscholar.org/CorpusID:261697361.
+70

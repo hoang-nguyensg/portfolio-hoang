@@ -1,0 +1,35 @@
+﻿
+> portfolio@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 2.3s
+  Running TypeScript ...
+  Collecting page data using 31 workers ...
+  Generating static pages using 31 workers (0/13) ...
+  Generating static pages using 31 workers (3/13) 
+  Generating static pages using 31 workers (6/13) 
+  Generating static pages using 31 workers (9/13) 
+Γ£ô Generating static pages using 31 workers (13/13) in 536.8ms
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ Γùï /blog
+Γö£ Γùï /contact
+Γö£ Γùï /experience
+Γö£ Γùï /projects
+Γö£ ΓùÅ /projects/[slug]
+Γöé Γö£ /projects/chest-xray-caption-vlm
+Γöé Γö£ /projects/hazard-safety-sign-detection
+Γöé Γöö /projects/document-vision-models
+Γö£ Γùï /robots.txt
+Γöö Γùï /sitemap.xml
+
+
+Γùï  (Static)  prerendered as static content
+ΓùÅ  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

@@ -1,0 +1,50 @@
+﻿node : file:///C:/User
+s/huyho/Documents/Proj
+ect/portfolio/scripts/
+check-encoding.mjs:15
+At line:1 char:1
++ node scripts/check-e
+ncoding.mjs src 2>&1 
+| Out-File 
+scan-result.txt - ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (file:///C:   
+ /User...encoding.    
+mjs:15:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+        pattern: 
+"├óΓé¼"", desc: "em 
+dash(ΓÇö)" },
+                     
+^^^^^^^^^^
+
+SyntaxError: 
+Unexpected string
+    at compileSourceTe
+xtModule (node:interna
+l/modules/esm/utils:34
+6:16)
+    at ModuleLoader.mo
+duleStrategy (node:int
+ernal/modules/esm/tran
+slators:107:18)
+    at #translate (nod
+e:internal/modules/esm
+/loader:540:12)
+    at ModuleLoader.lo
+adAndTranslate (node:i
+nternal/modules/esm/lo
+ader:587:27)
+    at async 
+ModuleJob._link (node:
+internal/modules/esm/m
+odule_job:162:19)
+
+Node.js v22.19.0

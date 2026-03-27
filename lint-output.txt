@@ -1,0 +1,31 @@
+﻿
+> portfolio@0.1.0 lint
+> eslint
+
+
+C:\Users\huyho\Documents\Project\portfolio\src\app\experience\page.tsx
+  93:17  error  Do not use an `<a>` element to navigate to `/projects/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\huyho\Documents\Project\portfolio\src\components\layout\Navbar.tsx
+  67:23  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\huyho\Documents\Project\portfolio\src\components\layout\Navbar.tsx:67:23
+  65 |     const [scrolled, setScrolled] = useState(false);
+  66 |
+> 67 |     useEffect(() => { setMounted(true); }, []);
+     |                       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  68 |
+  69 |     useEffect(() => {
+  70 |         const handleScroll = () => setScrolled(window.scrollY > 20);  react-hooks/set-state-in-effect
+
+C:\Users\huyho\Documents\Project\portfolio\src\components\sections\ExperiencePreview.tsx
+  1:8  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 3 problems (2 errors, 1 warning)
+
